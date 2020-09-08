@@ -1,0 +1,1 @@
+add_executable(test_sq_list test_sq_list.cpp sq_list.cpp)
