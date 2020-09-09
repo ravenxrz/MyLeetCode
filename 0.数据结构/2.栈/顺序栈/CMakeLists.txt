@@ -1,0 +1,1 @@
+add_executable(test_sq_stack test_sq_stack.cpp)

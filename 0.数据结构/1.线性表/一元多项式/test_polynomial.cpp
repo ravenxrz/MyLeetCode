@@ -20,5 +20,6 @@ int main()
     
     polynomial p3 = p1.add(p2);
     p3.print_polynomial();
+    
     return 0;
 }
