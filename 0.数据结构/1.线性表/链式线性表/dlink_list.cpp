@@ -24,11 +24,11 @@ public:
     ~dlinklist();
     
     /* operations */
-    Status isempty();
+    Status isempty() const;
     
-    Status length();
+    Status length() const;
     
-    Status peek(size_t idx, T &elem);
+    Status peek(size_t idx, T &elem) const;
     
     Status pop_front(T &elem);
     
@@ -43,7 +43,7 @@ public:
     Status remove(size_t idx, T &elem);
 
 private:
-    struct node *locate_prev_node(size_t idx);
+    struct node *locate_prev_node(size_t idx) const;
 
 private:
     struct node *head, *tail;
@@ -72,7 +72,7 @@ dlinklist<T>::dlinklist(const dlinklist<T> &list)
     T temp;
     
     /* deep copy */
-    head = (T *) malloc(sizeof(struct node));
+    head = (struct node *) malloc(sizeof(struct node));
     if (!head) {
         std::cerr << "init dlink list failed: malloc failed\n";
         exit(ERROR);
@@ -99,13 +99,13 @@ dlinklist<T>::~dlinklist()
 }
 
 template<typename T>
-Status dlinklist<T>::isempty()
+Status dlinklist<T>::isempty() const
 {
     return len == 0 ? TRUE : FALSE;
 }
 
 template<typename T>
-Status dlinklist<T>::length()
+Status dlinklist<T>::length() const
 {
     return len;
 }
@@ -119,7 +119,7 @@ Status dlinklist<T>::length()
  * @return
  */
 template<typename T>
-Status dlinklist<T>::peek(size_t idx, T &elem)
+Status dlinklist<T>::peek(size_t idx, T &elem) const
 {
     struct node *p;
     size_t i;
@@ -222,7 +222,7 @@ Status dlinklist<T>::remove(size_t idx, T &elem)
 }
 
 template<typename T>
-node *dlinklist<T>::locate_prev_node(size_t idx)
+node *dlinklist<T>::locate_prev_node(size_t idx) const
 {
     struct node *p;
     int j;
@@ -248,5 +248,5 @@ node *dlinklist<T>::locate_prev_node(size_t idx)
     return p;
 }
 
-
+#undef node
 

@@ -1,0 +1,1 @@
+add_executable(test_polynomial test_polynomial.cpp)
