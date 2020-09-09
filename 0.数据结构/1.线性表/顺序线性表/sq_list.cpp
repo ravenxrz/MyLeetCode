@@ -84,7 +84,7 @@ Status sqlist<T>::insert(size_t idx, T e)
         /* realloc */
         T *p = this->elem;
         this->elem = (T *) malloc(sizeof(T) * (this->list_size + this->increment_size));
-        memcpy(this->elem, p, this->list_size);
+        memcpy(this->elem, p, this->list_size * sizeof(T));
         free(p);
         
         this->list_size += this->increment_size;

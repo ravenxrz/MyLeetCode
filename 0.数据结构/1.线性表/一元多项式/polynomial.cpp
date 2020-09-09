@@ -89,7 +89,7 @@ void polynomial::create()
     polynomial_node node;
     /* create */
     while (std::cin >> node.coef && std::cin >> node.expn) {
-        if (node.coef == -1 && node.expn == -1) break;
+//        if (node.coef == -1 && node.expn == -1) break;
         poly.push_back(node);
     }
 }
