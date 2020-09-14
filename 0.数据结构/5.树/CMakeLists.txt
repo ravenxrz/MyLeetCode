@@ -1,0 +1,1 @@
+add_executable(test_bit_tree test_bit_tree.cpp)
