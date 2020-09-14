@@ -1,7 +1,6 @@
 /**
  * Created by raven on 2020/9/14.
  */
-#include "../common.h"
 #include <iostream>
 #include <stack>
 
