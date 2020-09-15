@@ -3,7 +3,7 @@
  */
 #include <iostream>
 #include <stack>
-
+#include <algorithm>
 using namespace std;
 
 template<typename T>
@@ -30,6 +30,8 @@ public:
 
     void postorder_traverse() const;
 
+    size_t height() const;
+
 private:
     void create_tree(node<T> *&t);
 
@@ -47,6 +49,7 @@ private:
 
     void postorder_stack() const;
 
+    size_t _height(node<T> *np) const;
 
     void free_nodes(node<T> *t);
 
@@ -208,6 +211,17 @@ void bittree<T>::postorder_stack() const {
         result.pop();
         cout << p->elem << " ";
     }
+}
+
+template<typename T>
+size_t bittree<T>::height() const {
+    return _height(root);
+}
+
+template<typename T>
+size_t bittree<T>::_height(node<T> *np) const {
+    if(np == nullptr) return 0;
+    else return max(_height(np->lchild),_height(np->rchild))+1;
 }
 
 

@@ -21,6 +21,15 @@
 /* 状态码 */
 typedef int Status;
 
+template<typename Iter>
+void print_container(Iter in,Iter out)
+{
+    while(in != out){
+        std::cout << *in << " ";
+        in++;
+    }
+    std::cout << "\n";
+}
 
 
 #endif //MYLEETCODE_COMMON_H

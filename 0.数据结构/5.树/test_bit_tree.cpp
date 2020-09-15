@@ -21,6 +21,7 @@ int main(void)
     cout << "post order:";
     tree.postorder_traverse();
 
+    cout << "tree height:" << tree.height() << "\n";
     return 0;
 }
 
