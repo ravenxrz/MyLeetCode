@@ -12,6 +12,8 @@
 using namespace std;
 
 
+#define MAX_VALUE 0x7fffffff
+
 vector<vector<int>> create_graph(const string &path) noexcept(false)
 {
     int n;
@@ -90,7 +92,7 @@ void prim(const vector<vector<int>> &graph)
 
     while(!remain_node.empty()){
         int min_node = remain_node.front();
-        int min_value = INFINITY;
+        int min_value = MAX_VALUE;
         int min_connect_node = -1;
 
         for(const auto &from_node : remain_node){
