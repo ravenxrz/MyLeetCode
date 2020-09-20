@@ -1,6 +1,7 @@
 /**
  * Created by raven on 2020/9/18.
  * prim 算法求解最小生成树
+ * 特点：只和节点有关，时间复杂度为O(n^2)，适合求边稠密的图
  */
 #include <iostream>
 #include <vector>
@@ -45,8 +46,8 @@ bool check(const vector<vector<int>> &graph)
 {
     bool visit[graph.size()];
     queue<int> q;
-
     int cur = 0;
+
     visit[cur] = true;
     q.push(cur);
     while(!q.empty()){

@@ -1,3 +1,5 @@
 add_executable(dfs dfs.cpp)
 add_executable(bfs bfs.cpp)
 add_executable(prim prim.cpp)
+add_executable(union_find_set union_find_set.cpp)
+add_executable(kruskal kruskal.cpp)
