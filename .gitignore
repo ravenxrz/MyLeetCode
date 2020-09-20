@@ -33,4 +33,5 @@
 
 # Cmake configuration
 cmake-build-debug/
-test
+test/
+build/
