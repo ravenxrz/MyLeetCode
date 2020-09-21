@@ -8,6 +8,8 @@
 #include <stack>
 #include <cstring>
 
+#include "graph_common.h"
+
 class topo_sorter1{
 public:
     ~topo_sorter1(){
@@ -64,8 +66,8 @@ private:
 class topo_sorter2{
 public:
     int topo_sort(const vector<vector<int>> &link_graph){
-        int indegree[link_graph.size()];
-        bool visited[link_graph.size()];
+        int *indegree = new int[link_graph.size()];
+        bool *visited = new bool[link_graph.size()];
         memset(indegree,0,sizeof(int)*link_graph.size());
         memset(visited,false,sizeof(bool)*link_graph.size());
         stack<int> sk;
@@ -105,6 +107,9 @@ public:
             cerr<< "circle exit\n";
             return -1;
         }
+
+        delete[] visited;
+        delete[] indegree;
         return 0;
     }
 

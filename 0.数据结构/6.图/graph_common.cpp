@@ -7,6 +7,8 @@
 #include <sstream>
 #include <iostream>
 
+#define INF 0x7fffffff
+
 vector<vector<int>> graph_common::create_link_graph(const string &path) {
     ifstream fin(path);
     if (!fin.is_open()) {
@@ -62,6 +64,7 @@ vector<vector<int>> graph_common::create_graph(const string &path) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             fin >> graph[i][j];
+            if (graph[i][j] == 0) graph[i][j] = -1;
         }
     }
     fin.close();
@@ -77,5 +80,7 @@ void graph_common::print_graph(const vector<vector<int>> &graph) {
         cout << "\n";
     }
 }
+
+#undef INF
 
 

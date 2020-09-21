@@ -1,1 +1,0 @@
-add_executable(struct_initialize_test struct_initialize_test.cpp)

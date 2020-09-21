@@ -9,13 +9,13 @@
 #include <queue>
 using namespace std;
 
-static int n;
+static int n = 0;
 
 
 void bfs(const vector<vector<int>> &graph)
 {
     queue<int> q;
-    bool visit[n];
+    bool *visit = new bool[graph.size()];
     memset(visit,false,sizeof(bool)*n);
 
     for(int i = 0;i<n;i++){
@@ -41,6 +41,8 @@ void bfs(const vector<vector<int>> &graph)
             }
         }
     }
+
+    delete[]visit;
 }
 
 int main()

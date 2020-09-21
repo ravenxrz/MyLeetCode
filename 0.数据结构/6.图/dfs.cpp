@@ -12,7 +12,7 @@
 
 using namespace std;
 
-static int n;  /* graph node num */
+static int n = 0;  /* graph node num */
 
 #define DEBUG
 

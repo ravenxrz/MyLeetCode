@@ -8,71 +8,70 @@
 #include<vector>
 #include<iostream>
 #include <fstream>
-#include <sstream>
+
 #include "graph_common.h"
+
 
 using namespace std;
 
-class dag_checker{
+class dag_checker {
 public:
-    int circle_check(const vector<vector<int>> &link_graph)
-    {
-        visited.reserve(link_graph.size());
-        parent.reserve(link_graph.size());
-        fill(visited.begin(),visited.end(),false);
-        fill(parent.begin(),parent.end(),-1);
+	int circle_check(const vector<vector<int>>& link_graph)
+	{
+		visited.reserve(link_graph.size());
+		parent.reserve(link_graph.size());
+		fill(visited.begin(), visited.end(), false);
+		fill(parent.begin(), parent.end(), -1);
 
-        /* 开始dfs */
-        visited[root_node] = true;
-        parent[root_node] = -1;
-        for (auto connected: link_graph[root_node]) {
-            _circle_check(link_graph, root_node,connected);
-        }
-        return circle_counter;
-    }
+		/* 开始dfs */
+		visited[root_node] = true;
+		parent[root_node] = -1;
+		for (auto connected : link_graph[root_node]) {
+			_circle_check(link_graph, root_node, connected);
+		}
+		return circle_counter;
+	}
 private:
-    void _circle_check(const vector<vector<int>> &link_graph, int from_node, int to_node) {
-        int cur_node = to_node;
-        if (!visited[cur_node]) {
-            visited[cur_node] = true;
-            parent[cur_node] = from_node;
-            for (auto connected_node : link_graph[cur_node]) {
-                if (connected_node == -1) continue;
-                _circle_check(link_graph, cur_node, connected_node);
-            }
-        } else {  /* 回边，检测 to_node 是否在 from_node 所在的访问树上 */
-            int temp_node = from_node;
-            while (temp_node != root_node && temp_node != to_node) {
-                temp_node = parent[temp_node];
-            }
-            if (temp_node == to_node) {
-                /* 在同一个子树上，形成回边 */
-                cout << "circle exist\n";
-                circle_counter++;
-            }
-        }
-    }
+	void _circle_check(const vector<vector<int>>& link_graph, int from_node, int to_node) {
+		int cur_node = to_node;
+		if (!visited[cur_node]) {
+			visited[cur_node] = true;
+			parent[cur_node] = from_node;
+			for (auto connected_node : link_graph[cur_node]) {
+				if (connected_node == -1) continue;
+				_circle_check(link_graph, cur_node, connected_node);
+			}
+		}
+		else {  /* 回边，检测 to_node 是否在 from_node 所在的访问树上 */
+			int temp_node = from_node;
+			while (temp_node != root_node && temp_node != to_node) {
+				temp_node = parent[temp_node];
+			}
+			if (temp_node == to_node) {
+				/* 在同一个子树上，形成回边 */
+				cout << "circle exist\n";
+				circle_counter++;
+			}
+		}
+	}
 
 private:
-     vector<bool> visited;
-     vector<int> parent;
+	vector<bool> visited;
+	vector<int> parent;
 
-     int root_node = 0;
-     int circle_counter = 0;
+	int root_node = 0;
+	int circle_counter = 0;
 
 
 };
 
 
-/*int main() {
-    vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/dag_check_input2.txt");
-    graph_common::print_link_graph(link_graph);
+int main() {
+	vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/dag_check_input2.txt");
+	graph_common::print_link_graph(link_graph);
 
-    dag_checker dagChecker;
-    int circle_counter = dagChecker.circle_check(link_graph);
-    cout << "circle number:"<< circle_counter<<"\n";
-    return 0;
-}*/
-
-
-//
+	dag_checker dagChecker;
+	int circle_counter = dagChecker.circle_check(link_graph);
+	cout << "circle number:"<< circle_counter<<"\n";
+	return 0;
+}
