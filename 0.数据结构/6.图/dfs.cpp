@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <stack>
+#include "graph_common.h"
 #include "../common.h"
 
 using namespace std;
@@ -17,16 +18,14 @@ static int n;  /* graph node num */
 
 /* 递归版本 */
 void dfs(int idx, const vector<vector<int>> &graph, bool *visit) {
-    if (idx == n) return;
-    else {
-        for (int i = 0; i < n; i++) {
-            if (!visit[i] && graph[idx][i] == 1) {
-                cout << "visit " << i +1 << "\n";
-                visit[i] = true;
-                dfs(i,graph,visit);
-            }
+    for (int i = 0; i < n; i++) {
+        if (!visit[i] && graph[idx][i] == 1) {
+            cout << "visit " << i +1 << "\n";
+            visit[i] = true;
+            dfs(i,graph,visit);
         }
     }
+
 }
 
 /* 非递归版本，辅助数据结构 */
@@ -80,27 +79,16 @@ int dfs_with_stack(const vector<vector<int>> &graph)
 
 int main() {
 
-    const string path("/home/raven/Projects/Clion/MyLeetCode/0.数据结构/6.图/graph_input.txt");
-    ifstream fin(path);
-    if (!fin.is_open()) return -1;
-
-    fin >> n;
     /* input graph */
-    vector<vector<int>> graph(n, vector<int>(n));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            fin >> graph[i][j];
-        }
-    }
+    vector<vector<int>> &&graph = graph_common::create_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/graph_input.txt");
 
     /* print graph */
-    for (int i = 0; i < n; i++) {
-        print_container(graph[i].begin(), graph[i].end());
-    }
+    graph_common::print_graph(graph);
 
+    n = graph.size();
     /* 递归版本 */
     bool *visit = new bool[n];
-    memset(visit, false, n * sizeof(bool));
+    memset(visit,false,sizeof(bool)*n);
     visit[0] = true;
     cout << "visit " << 1 << "\n";
     dfs(0,graph,visit);
@@ -110,6 +98,5 @@ int main() {
     cout << "=======\n";
     dfs_with_stack(graph);
 
-    fin.close();
     return 0;
 }

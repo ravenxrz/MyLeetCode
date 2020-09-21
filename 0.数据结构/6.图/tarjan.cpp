@@ -25,9 +25,12 @@ void print_link_graph(const vector<vector<int>> &link_graph) {
 }
 
 vector<vector<int>> create_link_graph() {
-    const string path("/home/raven/Projects/Clion/MyLeetCode/0.数据结构/6.图/tarjan_input3.txt");
+    const string path("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/tarjan_input1.txt");
     ifstream fin(path);
-    if (!fin.is_open()) exit(-1);
+    if (!fin.is_open()){
+        cerr << "input file does not exit\n";
+        exit(-1);
+    }
 
     int node_num;
     string line;
