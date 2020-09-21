@@ -35,5 +35,6 @@
 cmake-build-debug/
 test/
 build/
-/.vs
+.vs
 .vscode
+.idea
