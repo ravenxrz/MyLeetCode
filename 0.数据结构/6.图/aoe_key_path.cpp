@@ -1,6 +1,6 @@
 /**
- * aoe¹Ø¼üÂ·¾¶Çó½â
- * Í¼²ÉÓÃÁÚ½ÓÁ´±í±íÊ¾
+ * aoeå…³é”®è·¯å¾„æ±‚è§£
+ * å›¾é‡‡ç”¨é‚»æ¥é“¾è¡¨è¡¨ç¤º
  */
 #include <iostream>
 #include <stack>
@@ -11,18 +11,18 @@
 using namespace std;
 
 /**
- * @brief ±íÊ¾Ò»¸ö»î¶¯
+ * @brief è¡¨ç¤ºä¸€ä¸ªæ´»åŠ¨
  */
 class activity {
 public:
 	activity(int time_cost, int src, int dest, int e, int l)
 		: time_cost(time_cost), src(src), dest(dest), e(e), l(l) {}
 
-	int time_cost; /* ºÄÊ± */
-	int src;       /* Ô´µã */
-	int dest;      /*  ÖÕµã*/
-	int e;         /* ×îÔç¿ªÊ¼Ê±¼ä */
-	int l;         /* ×îÍí¿ªÊ¼Ê±¼ä */
+	int time_cost; /* è€—æ—¶ */
+	int src;       /* æºç‚¹ */
+	int dest;      /*  ç»ˆç‚¹*/
+	int e;         /* æœ€æ—©å¼€å§‹æ—¶é—´ */
+	int l;         /* æœ€æ™šå¼€å§‹æ—¶é—´ */
 };
 
 class event_node {
@@ -33,8 +33,8 @@ public:
 	{
 	}
 
-	int ve; /* ÊÂ¼ş×îÔç¿ªÊ¼Ê±¼ä */
-	int vl; /* ÊÂ¼ş×îÍí¿ªÊ¼Ê±¼ä*/
+	int ve; /* äº‹ä»¶æœ€æ—©å¼€å§‹æ—¶é—´ */
+	int vl; /* äº‹ä»¶æœ€æ™šå¼€å§‹æ—¶é—´*/
 };
 
 static vector<event_node> nodes;
@@ -44,15 +44,19 @@ static void topo_calc(const vector<vector<int>>& graph)
 {
 	nodes.reserve(graph.size());
 	nodes.clear();
-	event_nodes.reserve(graph.size());
-	fill(event_nodes.begin(), event_nodes.end(), event_node(0, 0x7fffffff));
+//	event_nodes.reserve(graph.size());
+//	fill(event_nodes.begin(), event_nodes.end(), event_node(0, 0x7fffffff));
+    /* è¿™é‡Œå¦‚æœé‡‡ç”¨reserveï¼Œå›æŠ¥é”™ï¼Œç›®å‰åŸå› æœªçŸ¥ */
+    for(int i = 0;i<graph.size();i++){
+        event_nodes.push_back(event_node(0,0x7fffffff));
+    }
 
 	stack<int> sk1;
-	stack<int> reverse_topo_sk; /* ÄæÍØÆËÅÅĞò */
+	stack<int> reverse_topo_sk; /* é€†æ‹“æ‰‘æ’åº */
 	vector<int> indegree(graph.size(), 0);
 	vector<bool> visited(graph.size(), false);
 
-	/* ³õÊ¼»¯Èë¶ÈÊı×é */
+	/* åˆå§‹åŒ–å…¥åº¦æ•°ç»„ */
 	for (int i = 0; i < graph.size(); i++)
 	{
 		for (int j = 0; j < graph.size(); j++)
@@ -64,7 +68,7 @@ static void topo_calc(const vector<vector<int>>& graph)
 		}
 	}
 
-	/* ÍØÆËÅÅĞò£¬ÇóÊÂ¼ş×îÔç¿ªÊ¼Ê±¼ä*/
+	/* æ‹“æ‰‘æ’åºï¼Œæ±‚äº‹ä»¶æœ€æ—©å¼€å§‹æ—¶é—´*/
 	sk1.push(0);
 	visited[0] = true;
 	while (!sk1.empty())
@@ -74,8 +78,8 @@ static void topo_calc(const vector<vector<int>>& graph)
 		reverse_topo_sk.push(cur_node);
 
 		/*
-		 * 1.Óë cur_node Á¬½ÓµÄnode£¬indegree-1
-		 * 2.¸üĞÂÊÂ¼ş½ÚµãµÄ×îÔç¿ªÊ¼Ê±¼ä
+		 * 1.ä¸ cur_node è¿æ¥çš„nodeï¼Œindegree-1
+		 * 2.æ›´æ–°äº‹ä»¶èŠ‚ç‚¹çš„æœ€æ—©å¼€å§‹æ—¶é—´
 		 */
 		for (int i = 0; i < graph.size(); i++)
 		{
@@ -101,14 +105,14 @@ static void topo_calc(const vector<vector<int>>& graph)
 		cerr << "circle exit\n";
 		exit(-1);
 	}
-	cout << "\n";
-	cout << "ÊÂ¼şµÄ×îÔç¿ªÊ¼Ê±¼ä:\n";
+	cout << "äº‹ä»¶çš„æœ€æ—©å¼€å§‹æ—¶é—´:\n";
 	for (const auto& event_node : event_nodes)
 	{
 		cout << event_node.ve << " ";
 	}
+    cout << "\n";
 
-	/* ÄæÍØÆËÅÅĞò */
+	/* é€†æ‹“æ‰‘æ’åº */
 	int max_value = -1;
 	for_each(event_nodes.begin(), event_nodes.end(), [&](const event_node& node)
 		{
@@ -125,7 +129,7 @@ static void topo_calc(const vector<vector<int>>& graph)
 		reverse_topo_sk.pop();
 
 		/**
-		 * ¸üĞÂevent_nodeµÄ×î³Ù¿ªÊ¼Ê±¼ä
+		 * æ›´æ–°event_nodeçš„æœ€è¿Ÿå¼€å§‹æ—¶é—´
 		 */
 		for (int j = 0; j < graph.size(); j++)
 		{
@@ -135,39 +139,29 @@ static void topo_calc(const vector<vector<int>>& graph)
 			}
 		}
 	}
-	cout << "\n";
-	cout << "ÊÂ¼şµÄ×îÍí¿ªÊ¼Ê±¼ä:\n";
+	cout << "äº‹ä»¶çš„æœ€æ™šå¼€å§‹æ—¶é—´:\n";
 	for (const auto& event_node : event_nodes)
 	{
 		cout << event_node.vl << " ";
 	}
+	cout << "\n";
 
 }
 
 void activity_calc(const vector<vector<int>>& graph)
 {
-	/* bfs ±éÀú */
 	queue<int> q;
-	vector<bool> visited(graph.size(), false);
 
-	visited[0] = true;
-	q.push(0);
-	while (!q.empty())
-	{
-		int cur_node = q.front();
-		q.pop();
-
-		for (int i = 0; i < graph.size(); i++)
-		{
-			if (!visited[i] && graph[cur_node][i] != -1)
-			{
-				visited[i] = true;
-				q.push(i);
-				activities.push_back(activity(graph[cur_node][i], cur_node, i,
-					event_nodes[cur_node].ve,
-					event_nodes[i].vl - graph[cur_node][i]));
-			}
-		}
+	for(int i = 0;i<graph.size();i++){
+	    for(int j = 0;j<graph.size();j++){
+            if (graph[i][j] != -1)
+            {
+                activities.emplace_back(activity(
+                        graph[i][j], i, j,
+                        event_nodes[i].ve,
+                        event_nodes[j].vl - graph[i][j]));
+            }
+	    }
 	}
 }
 
@@ -179,7 +173,7 @@ void print_key_node()
 	{
 		if(act.e == act.l)
 		{
-			cout << act.src << "--" << act.dest << "\n";
+			cout << act.src+1 << "--" << act.dest+1 << "\n";
 		}
 	}
 }
@@ -189,16 +183,17 @@ int main()
 {
 	/* init graph */
 	vector<vector<int>>&& graph = graph_common::create_graph(
-		"E:/MyLeetCode/0.Êı¾İ½á¹¹/6.Í¼/aoe_key_path_input.txt");
+		"/home/raven/Projects/Clion/MyLeetCode/0.æ•°æ®ç»“æ„/6.å›¾/aoe_key_path_input.txt");
 	graph_common::print_graph(graph);
 
-	/* ¼ÆËãÊÂ¼ş½ÚµãµÄ×îÔçºÍ×îÍí¿ªÊ¼¼ä */
+	/* è®¡ç®—äº‹ä»¶èŠ‚ç‚¹çš„æœ€æ—©å’Œæœ€æ™šå¼€å§‹é—´ */
 	topo_calc(graph);
 
-	/* Éú³É»î¶¯µÄ×îÔçºÍ×îÍí¿ªÊ¼Ê±¼ä */
-	//activity_calc(graph);
+	/* ç”Ÿæˆæ´»åŠ¨çš„æœ€æ—©å’Œæœ€æ™šå¼€å§‹æ—¶é—´ */
+	activity_calc(graph);
 
-	//print_key_node();
+	/* æ‰“å° */
+	print_key_node();
 	
 	return 0;
 }
