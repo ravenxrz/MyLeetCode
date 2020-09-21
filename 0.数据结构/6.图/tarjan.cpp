@@ -35,7 +35,7 @@ vector<vector<int>> create_link_graph() {
     vector<vector<int>> link_graph(node_num, vector<int>());
 
     while (getline(fin, line)) {
-        unsigned long i = line.find_first_of(':');
+        size_t i = line.find_first_of(':');
         if (i == std::string::npos) continue;
 
         string num_str = line.substr(0, i); /* 序号 */

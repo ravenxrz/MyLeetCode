@@ -37,7 +37,7 @@ public:
     dfs_stack_item(int cur_node, int connect_node) : cur_node(cur_node), connect_node(connect_node) {}
 };
 
-int _dfs(const vector<vector<int>> &graph, bool *visit, int idx)
+void _dfs(const vector<vector<int>> &graph, bool *visit, int idx)
 {
     stack<dfs_stack_item *> sk;
     dfs_stack_item *np;
@@ -65,7 +65,7 @@ int _dfs(const vector<vector<int>> &graph, bool *visit, int idx)
 
 int dfs_with_stack(const vector<vector<int>> &graph)
 {
-    bool visit[graph.size()];
+    bool *visit = new bool[graph.size()];
 
     /* init stack with first node */
     for(int i = 0;i<n;i++){

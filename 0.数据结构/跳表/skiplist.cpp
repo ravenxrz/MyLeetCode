@@ -4,6 +4,7 @@
  */
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 
 
 template<typename K, typename V>
@@ -85,7 +86,7 @@ template<typename K, typename V>
 node<K, V> *skiplist<K, V>::search(K key) const
 {
     /* update数组保留搜索路径中的节点 */
-    node<K, V> *update[max_level];
+    node<K, V>** update = new node<K, V> * [max_level];
     node<K, V> *current{};
     memset(update,0,max_level);
     
@@ -110,7 +111,7 @@ template<typename K, typename V>
 bool skiplist<K, V>::insert(K key, V value, float p)
 {
     /* update数组保留搜索路径中的节点 */
-    node<K, V> *update[max_level];
+    node<K, V>** update = new node<K, V> * [max_level];
     node<K, V> *current{};
     node<K, V> *newnode{};
     size_t rlevel;
@@ -153,7 +154,7 @@ template<typename K, typename V>
 bool skiplist<K, V>::remove(K key)
 {
     /* update数组保留搜索路径中的节点 */
-    node<K, V> *update[max_level];
+    node<K, V> **update = new node<K, V>* [max_level];
     node<K, V> *current{};
     memset(update,0,max_level);
     
@@ -205,11 +206,11 @@ void skiplist<K, V>::display() const
 template<typename K, typename V>
 size_t skiplist<K, V>::random_level(float p)
 {
-    float r = (float)random() / RAND_MAX;
+    float r = (float)rand() / RAND_MAX;
     int rlevel = 0;
     while (r < p && rlevel < max_level - 1) {
         rlevel++;
-        r = (float)random() /RAND_MAX;
+        r = (float)rand() /RAND_MAX;
     }
     return rlevel;
 }

@@ -1,8 +1,8 @@
 /**
  * Created by raven on 2020/9/9.
- * æ‹¬å·åŒ¹é…é—®é¢˜
+ * À¨ºÅÆ¥ÅäÎÊÌâ
  */
-#include "../é¡ºåºæ ˆ/sq_stack.cpp"
+#include "../Ë³ĞòÕ»/sq_stack.cpp"
 
 bool match(const std::string &brackets)
 {

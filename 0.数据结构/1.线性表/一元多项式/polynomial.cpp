@@ -2,7 +2,7 @@
  * Created by raven on 2020/9/9.
  *
  */
-#include "../閾惧紡绾挎�ц〃/dlink_list.cpp"
+#include "../链式线性表/dlink_list.cpp"
 
 typedef struct {
     double coef;
@@ -57,10 +57,9 @@ polynomial polynomial::add(const polynomial &other)
             j++;
             result.poly.push_back(temp2);
         } else {      /* temp1.expn = temp2.expn */
-            polynomial_node new_node = {
-                    .coef = temp1.coef + temp2.coef,
-                    .expn = temp1.expn
-            };
+            polynomial_node new_node; 
+            new_node.coef = temp1.coef + temp2.coef;
+            new_node.expn = temp1.expn;
             if (new_node.coef != 0) {
                 result.poly.push_back(new_node);
             }

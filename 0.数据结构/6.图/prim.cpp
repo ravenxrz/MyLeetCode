@@ -46,7 +46,7 @@ void print_graph(const vector<vector<int>> &graph)
  */
 bool check(const vector<vector<int>> &graph)
 {
-    bool visit[graph.size()];
+    bool* visit = new bool[graph.size()];
     queue<int> q;
     int cur = 0;
 
