@@ -1,7 +1,0 @@
-add_subdirectory(1.线性表)
-add_subdirectory(2.栈)
-add_subdirectory(3.队列)
-add_subdirectory(4.串)
-add_subdirectory(5.树)
-add_subdirectory(6.图)
-add_subdirectory(跳表)

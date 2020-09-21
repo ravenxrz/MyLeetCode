@@ -116,7 +116,7 @@ void prim(const vector<vector<int>> &graph)
 
 int main()
 {
-    vector<vector<int>> graph = create_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/min_span_tree_input.txt");
+    vector<vector<int>> graph = create_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/min_span_tree_input.txt");
     if(!check(graph)){
         cerr << "graph 不是连通图，无法生成最小生成树\n";
         return -1;

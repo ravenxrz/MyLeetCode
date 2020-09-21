@@ -7,7 +7,7 @@
 int main()
 {
     /* redirect input to a file */
-    std::ifstream in("/home/raven/Projects/MyLeetCode/0.数据结构/1.线性表/一元多项式/input.txt");
+    std::ifstream in("/home/raven/Projects/MyLeetCode/0.DataStructure/1.LinerTable/一元多项式/input.txt");
     std::cin.rdbuf(in.rdbuf());
 
     polynomial p1;

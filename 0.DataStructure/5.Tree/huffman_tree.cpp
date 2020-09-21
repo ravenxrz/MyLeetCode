@@ -1,4 +1,4 @@
-﻿/**
+/**
  * huffman编码
  * note:huffman编码的结果可能不止一种，但是最终的路径权重和肯定是一样的
  */
@@ -139,7 +139,7 @@ private:
 int main()
 {
     huffman_tree<char> tree;
-    tree.create_huffman_tree("/home/raven/Projects/Clion/MyLeetCode/0.数据结构/5.树/huffman_input.txt");
+    tree.create_huffman_tree("/home/raven/Projects/Clion/MyLeetCode/0.DataStructure/5.Tree/huffman_input.txt");
     tree.print_encode();
     tree.print_decode("1011011100111");
     tree.print_decode("11");

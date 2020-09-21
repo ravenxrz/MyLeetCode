@@ -1,9 +1,9 @@
 /**
  * Created by raven on 2020/9/10.
- * ±í´ïÊ½ÇóÖµ
- * ºÍÊéÉÏµÄËã·¨ÓĞËù²»Í¬£¬°´ÕÕ×Ô¼ºµÄÀí½âĞ´µÄ
+ * è¡¨è¾¾å¼æ±‚å€¼
+ * å’Œä¹¦ä¸Šçš„ç®—æ³•æœ‰æ‰€ä¸åŒï¼ŒæŒ‰ç…§è‡ªå·±çš„ç†è§£å†™çš„
  */
-#include "../Ë³ĞòÕ»/sq_stack.cpp"
+#include "../é¡ºåºæ ˆ/sq_stack.cpp"
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
@@ -24,7 +24,7 @@ int precedence(char op)
 
 int eval(const string &expression)
 {
-    /* ¶¨ÒåÔËËã·ûÕ»ºÍ²Ù×÷ÊıÕ» */
+    /* å®šä¹‰è¿ç®—ç¬¦æ ˆå’Œæ“ä½œæ•°æ ˆ */
     sqstack<int> numstack;
     sqstack<char> opstack;
     int num1, num2;
@@ -32,11 +32,11 @@ int eval(const string &expression)
     char cur;
     
     for (size_t i = 0; i < expression.length(); i++) {
-        /*  Ìø¹ı¿Õ¸ñ */
+        /*  è·³è¿‡ç©ºæ ¼ */
         cur = expression.at(i);
         if (cur == ' ') continue;
         
-        /* Èç¹ûÊÇÊı×ÖÔòĞèÒªÑ¹Èë */
+        /* å¦‚æœæ˜¯æ•°å­—åˆ™éœ€è¦å‹å…¥ */
         if (isdigit(cur)) {
             int val = 0;
             while (i < expression.length() && isdigit(expression.at(i))) {
@@ -45,13 +45,13 @@ int eval(const string &expression)
             }
             numstack.push(val);
             if(i >= expression.length()) break;
-            if(!isdigit(expression.at(i))) i--;        /* ¸´Ô­²Ù×÷ */
+            if(!isdigit(expression.at(i))) i--;        /* å¤åŸæ“ä½œ */
         }
-        /* À¨ºÅ´¦Àí */
+        /* æ‹¬å·å¤„ç† */
         else if (cur == '(') {
             opstack.push(cur);
         } else if (cur == ')') {
-            /* ´¦ÀíÔÚ( xxx )Õâ¸öÇø¼äµÄÊı¾İ */
+            /* å¤„ç†åœ¨( xxx )è¿™ä¸ªåŒºé—´çš„æ•°æ® */
             opstack.pop(op);
             while(!opstack.isempty() && op != '(') {
                 numstack.pop(num2);
@@ -61,7 +61,7 @@ int eval(const string &expression)
             }
             numstack.gettop(num1);
         }
-            /* ÔËËã·û´¦Àí */
+            /* è¿ç®—ç¬¦å¤„ç† */
         else {
             if(!opstack.isempty()){
                 opstack.gettop(op);
@@ -76,7 +76,7 @@ int eval(const string &expression)
         }
     }
     
-    /* ´¦ÀíÊ£ÓàÊı */
+    /* å¤„ç†å‰©ä½™æ•° */
     while(!opstack.isempty()){
         numstack.pop(num2);
         numstack.pop(num1);
@@ -104,7 +104,7 @@ int operate(int num1, int num2, char op)
             val = num1 / num2;
             break;
         default:
-            cerr << "²»ÕıÈ·µÄ±í´ïÊ½" << "\n";
+            cerr << "ä¸æ­£ç¡®çš„è¡¨è¾¾å¼" << "\n";
             exit(ERROR);
     }
     return val;

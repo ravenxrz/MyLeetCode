@@ -1,8 +1,8 @@
 /**
  * Created by raven on 2020/9/9.
- * ÃÔ¹¬Çó½â
+ * è¿·å®«æ±‚è§£
  */
-#include "../Ë³ĞòÕ»/sq_stack.cpp"
+#include "../é¡ºåºæ ˆ/sq_stack.cpp"
 #include <fstream>
 #include <sstream>
 #include <stack>
@@ -19,12 +19,12 @@ enum point_type {
 #define UP 4
 #define DISABLE 5
 
-/* ÃÔ¹¬·½¸ñ */
+/* è¿·å®«æ–¹æ ¼ */
 typedef struct {
-    int x, y;        /* ×ù±ê */
+    int x, y;        /* åº§æ ‡ */
     point_type type;
     int direction;      /* 1 right, 2 down, 3 left 4 up 5 disable */
-    bool footprint;     /* ÊÇ·ñÒÑ¾­×ß¹ı */
+    bool footprint;     /* æ˜¯å¦å·²ç»èµ°è¿‡ */
 } point;
 
 
@@ -143,9 +143,9 @@ Status maze::print_one_solution(point start, point end) const
                     continue;
                 }
                 
-                /* »ùÓÚµ±Ç°µã£¬ÕÒÏÂÒ»¸ö¿ÉÓÃµã */
+                /* åŸºäºå½“å‰ç‚¹ï¼Œæ‰¾ä¸‹ä¸€ä¸ªå¯ç”¨ç‚¹ */
                 next_pos = next_point(*cur);
-                if (next_pos->type != WALL && !next_pos->footprint && next_pos->direction != DISABLE) { /* ÕÒµ½ÁË¿É×ßµã */
+                if (next_pos->type != WALL && !next_pos->footprint && next_pos->direction != DISABLE) { /* æ‰¾åˆ°äº†å¯èµ°ç‚¹ */
                     cur = next_pos;
                     break;
                 }
@@ -201,7 +201,7 @@ point *maze::next_point(const point &cur) const
 int main()
 {
     maze maze1(5, 5);
-    maze1.init_maze("E:\\MyLeetCode\\0.Êı¾İ½á¹¹\\2.Õ»\\Ó¦ÓÃÀı×Ó\\maze_input.txt");
+    maze1.init_maze("E:\\MyLeetCode\\0.DataStructure\\2.Stack\\åº”ç”¨ä¾‹å­\\maze_input.txt");
     maze1.print_maze();
     
     point start;

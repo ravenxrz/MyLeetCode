@@ -1,9 +1,9 @@
 /**
  * Created by raven on 2020/9/9.
  * base conversion
- * ¸ø¶¨ÈÎÒâÊ®½øÖÆÊı£¬×ª»»ÎªĞèÒªµÄ½øÖÆÊı
+ * ç»™å®šä»»æ„åè¿›åˆ¶æ•°ï¼Œè½¬æ¢ä¸ºéœ€è¦çš„è¿›åˆ¶æ•°
  */
-#include "../Ë³ĞòÕ»/sq_stack.cpp"
+#include "../é¡ºåºæ ˆ/sq_stack.cpp"
 
 void convert(int base, int value)
 {

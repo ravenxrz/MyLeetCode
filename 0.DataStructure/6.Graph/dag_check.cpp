@@ -67,7 +67,7 @@ private:
 
 
 int main() {
-	vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/dag_check_input2.txt");
+	vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/dag_check_input2.txt");
 	graph_common::print_link_graph(link_graph);
 
 	dag_checker dagChecker;

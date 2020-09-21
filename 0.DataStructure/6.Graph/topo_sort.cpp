@@ -127,7 +127,7 @@ private:
 
 int main()
 {
-    vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/topo_sort_input.txt");
+    vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/topo_sort_input.txt");
     graph_common::print_link_graph(link_graph);
 
     topo_sorter1 topoSorter1;

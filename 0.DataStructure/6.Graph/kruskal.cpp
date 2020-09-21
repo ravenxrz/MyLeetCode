@@ -35,7 +35,7 @@ void print_graph(const vector<vector<int>>& graph) {
 }
 
 /**
- * ÓÃbfs¼ì²égraphÊÇ·ñÊÇÁ¬Í¨µÄ
+ * ç”¨bfsæ£€æŸ¥graphæ˜¯å¦æ˜¯è¿é€šçš„
  * @param graph
  */
 bool check(const vector<vector<int>>& graph) {
@@ -56,7 +56,7 @@ bool check(const vector<vector<int>>& graph) {
 		}
 	}
 
-	/* visitÊÇ·ñÈ«Îªtrue */
+	/* visitæ˜¯å¦å…¨ä¸ºtrue */
 	for (int i = 0; i < graph.size(); i++) {
 		if (!visit[i]) return false;
 	}
@@ -79,11 +79,11 @@ void kruskal(const vector<vector<int>>& graph) {
 		}
 	};
 
-	/* ¹¹Ôì±ß */
+	/* æ„é€ è¾¹ */
 	const int node_num = graph.size();
 	vector<edge> edges;
 	for (int i = 0; i < node_num; i++) {
-		for (int j = 0; j < node_num; j++) {  /* ÎªÁË¿¼ÂÇÓĞÏòÍ¼,ËùÒÔÎŞÏòÍ¼¾Í¼ÓÈëÁ½Ìõ±ß */
+		for (int j = 0; j < node_num; j++) {  /* ä¸ºäº†è€ƒè™‘æœ‰å‘å›¾,æ‰€ä»¥æ— å‘å›¾å°±åŠ å…¥ä¸¤æ¡è¾¹ */
 			if (graph[i][j] != 0) {
 				edges.emplace_back(i, j, graph[i][j]);
 			}
@@ -91,7 +91,7 @@ void kruskal(const vector<vector<int>>& graph) {
 	}
 	sort(edges.begin(), edges.end());
 
-	/* ¹¹Ôì²¢²é¼¯:£¨¿ÉÒÔ¿¼ÂÇÖ»ÓÃÊı×éÀ´×ö) */
+	/* æ„é€ å¹¶æŸ¥é›†:ï¼ˆå¯ä»¥è€ƒè™‘åªç”¨æ•°ç»„æ¥åš) */
 	union_find_set ufs(node_num);
 
 	/* kruskal */
@@ -114,9 +114,9 @@ void kruskal(const vector<vector<int>>& graph) {
 
 int main() {
 	vector<vector<int>> graph = create_graph(
-		"E:\\MyLeetCode\\0.Êı¾İ½á¹¹\\6.Í¼\\min_span_tree_input.txt");
+		"E:\\MyLeetCode\\0.DataStructure\\6.Graph\\min_span_tree_input.txt");
 	if (!check(graph)) {
-		cerr << "graph ²»ÊÇÁ¬Í¨Í¼£¬ÎŞ·¨Éú³É×îĞ¡Éú³ÉÊ÷\n";
+		cerr << "graph ä¸æ˜¯è¿é€šå›¾ï¼Œæ— æ³•ç”Ÿæˆæœ€å°ç”Ÿæˆæ ‘\n";
 		return -1;
 	}
 	kruskal(graph);

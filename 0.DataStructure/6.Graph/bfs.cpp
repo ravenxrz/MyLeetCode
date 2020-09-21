@@ -47,7 +47,7 @@ void bfs(const vector<vector<int>> &graph)
 
 int main()
 {
-    vector<vector<int>> &&graph = graph_common::create_graph("/home/raven/Projects/clion/MyLeetCode/0.数据结构/6.图/graph_input.txt");
+    vector<vector<int>> &&graph = graph_common::create_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/graph_input.txt");
     graph_common::print_graph(graph);
 
     n = graph.size();
