@@ -25,7 +25,7 @@ void print_link_graph(const vector<vector<int>> &link_graph) {
 }
 
 vector<vector<int>> create_link_graph() {
-    const string path("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/tarjan_input1.txt");
+    const string path("E:\\MyLeetCode\\0.DataStructure\\6.Graph\\tarjan_input1.txt");
     ifstream fin(path);
     if (!fin.is_open()){
         cerr << "input file does not exit\n";

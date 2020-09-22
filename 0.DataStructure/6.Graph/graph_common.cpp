@@ -64,7 +64,6 @@ vector<vector<int>> graph_common::create_graph(const string &path) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             fin >> graph[i][j];
-            if (graph[i][j] == 0) graph[i][j] = -1;
         }
     }
     fin.close();

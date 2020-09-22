@@ -80,7 +80,7 @@ int dfs_with_stack(const vector<vector<int>> &graph)
 int main() {
 
     /* input graph */
-    vector<vector<int>> &&graph = graph_common::create_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/graph_input.txt");
+    vector<vector<int>> &&graph = graph_common::create_graph("E:\\MyLeetCode\\0.DataStructure\\6.Graph\\graph_input.txt");
 
     /* print graph */
     graph_common::print_graph(graph);

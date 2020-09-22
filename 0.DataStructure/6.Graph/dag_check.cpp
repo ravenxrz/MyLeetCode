@@ -66,12 +66,12 @@ private:
 };
 
 
-int main() {
-	vector<vector<int>> &&link_graph = graph_common::create_link_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/dag_check_input2.txt");
+/*int main() {
+	vector<vector<int>> &&link_graph = graph_common::create_link_graph("E:\\MyLeetCode\\0.DataStructure\\6.Graph\\dag_check_input1.txt");
 	graph_common::print_link_graph(link_graph);
 
 	dag_checker dagChecker;
 	int circle_counter = dagChecker.circle_check(link_graph);
 	cout << "circle number:"<< circle_counter<<"\n";
 	return 0;
-}
+}*/

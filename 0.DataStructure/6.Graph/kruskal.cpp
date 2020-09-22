@@ -49,7 +49,7 @@ bool check(const vector<vector<int>>& graph) {
 		cur = q.front();
 		q.pop();
 		for (int i = 0; i < graph.size(); i++) {
-			if (graph[cur][i] != 0 && !visit[i]) {
+			if (graph[cur][i] != -1 && !visit[i]) {
 				visit[i] = true;
 				q.push(i);
 			}
@@ -84,7 +84,7 @@ void kruskal(const vector<vector<int>>& graph) {
 	vector<edge> edges;
 	for (int i = 0; i < node_num; i++) {
 		for (int j = 0; j < node_num; j++) {  /* 为了考虑有向图,所以无向图就加入两条边 */
-			if (graph[i][j] != 0) {
+			if (graph[i][j] != -1) {
 				edges.emplace_back(i, j, graph[i][j]);
 			}
 		}

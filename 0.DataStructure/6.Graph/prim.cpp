@@ -25,7 +25,7 @@ vector<vector<int>> create_graph(const string &path) noexcept(false)
     for(int i = 0;i<n;i++){
         for(int j = 0;j<n;j++){
             fin>>graph[i][j];
-            graph[i][j] = graph[i][j] == 0 ? INFINITY : graph[i][j];
+            graph[i][j] = graph[i][j] == -1 ? INFINITY : graph[i][j];
         }
     }
     return graph;
@@ -57,7 +57,7 @@ bool check(const vector<vector<int>> &graph)
         cur = q.front();
         q.pop();
         for(int i = 0;i<graph.size();i++){
-            if(graph[cur][i] != 0 && !visit[i]){
+            if(graph[cur][i] != -1 && !visit[i]){
                 visit[i]  = true;
                 q.push(i);
             }
@@ -116,7 +116,7 @@ void prim(const vector<vector<int>> &graph)
 
 int main()
 {
-    vector<vector<int>> graph = create_graph("/home/raven/Projects/clion/MyLeetCode/0.DataStructure/6.Graph/min_span_tree_input.txt");
+    vector<vector<int>> graph = create_graph("E:\\MyLeetCode\\0.DataStructure\\6.Graph\\min_span_tree_input.txt");
     if(!check(graph)){
         cerr << "graph 不是连通图，无法生成最小生成树\n";
         return -1;
