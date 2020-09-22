@@ -27,6 +27,8 @@ public:
 
 class event_node {
 public:
+    event_node() =default;
+    
     event_node(int ve, int vl)
             : ve(ve),
               vl(vl)
@@ -37,19 +39,12 @@ public:
     int vl; /* 事件最晚开始时间*/
 };
 
-static vector<event_node> nodes;
 static vector<activity> activities;
 static vector<event_node> event_nodes;
 static void topo_calc(const vector<vector<int>>& graph)
 {
-    nodes.reserve(graph.size());
-    nodes.clear();
-//	event_nodes.reserve(graph.size());
-//	fill(event_nodes.begin(), event_nodes.end(), event_node(0, 0x7fffffff));
-    /* 这里如果采用reserve，回报错，目前原因未知 */
-    for(int i = 0;i<graph.size();i++){
-        event_nodes.push_back(event_node(0,0x7fffffff));
-    }
+	event_nodes.resize(graph.size());
+	fill(event_nodes.begin(), event_nodes.end(), event_node(0, 0x7fffffff));
     
     stack<int> sk1;
     stack<int> reverse_topo_sk; /* 逆拓扑排序 */

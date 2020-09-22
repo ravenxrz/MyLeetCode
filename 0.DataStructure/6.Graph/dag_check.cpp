@@ -18,8 +18,8 @@ class dag_checker {
 public:
 	int circle_check(const vector<vector<int>>& link_graph)
 	{
-		visited.reserve(link_graph.size());
-		parent.reserve(link_graph.size());
+		visited.resize(link_graph.size());
+		parent.resize(link_graph.size());
 		fill(visited.begin(), visited.end(), false);
 		fill(parent.begin(), parent.end(), -1);
 
@@ -66,7 +66,8 @@ private:
 };
 
 
-/*int main() {
+/*
+int main() {
 	vector<vector<int>> &&link_graph = graph_common::create_link_graph("E:\\MyLeetCode\\0.DataStructure\\6.Graph\\dag_check_input1.txt");
 	graph_common::print_link_graph(link_graph);
 
@@ -74,4 +75,5 @@ private:
 	int circle_counter = dagChecker.circle_check(link_graph);
 	cout << "circle number:"<< circle_counter<<"\n";
 	return 0;
-}*/
+}
+*/

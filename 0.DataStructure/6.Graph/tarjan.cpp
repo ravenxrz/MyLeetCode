@@ -103,9 +103,9 @@ int main() {
 
     /* initialize global vars */
     visited.resize(link_graph.size());
-    dfn.reserve(link_graph.size());
-    low.reserve(link_graph.size());
-    parent.reserve(link_graph.size());
+    dfn.resize(link_graph.size());
+    low.resize(link_graph.size());
+    parent.resize(link_graph.size());
 
     /* tarjan algorithm */
     /* start from node 0 */
