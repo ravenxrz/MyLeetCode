@@ -1,0 +1,2 @@
+add_executable(sequential_search sequential_search.cpp)
+add_executable(binary_search binary_search.cpp)

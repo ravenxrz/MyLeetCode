@@ -63,7 +63,6 @@ void dijkstra(const vector<vector<int>> &graph, int src)
     }
     
     /* print answer */
-
     cout << endl;
     /* print path */
     for(int i = 0;i<D.size();i++){
