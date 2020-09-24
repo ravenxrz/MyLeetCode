@@ -41,7 +41,7 @@ int main()
     }
     cout << endl;
     
-    /* search test */
+    /* search Test */
     cout << seq_search(dict,312) << endl;
     
     return 0;

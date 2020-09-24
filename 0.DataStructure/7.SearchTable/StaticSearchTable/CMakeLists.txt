@@ -1,2 +1,3 @@
 add_executable(sequential_search sequential_search.cpp)
 add_executable(binary_search binary_search.cpp)
+add_executable(static_second_optimal_search_tree static_second_optimal_search_tree.cpp)
