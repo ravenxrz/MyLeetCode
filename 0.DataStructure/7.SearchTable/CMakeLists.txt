@@ -1,1 +1,2 @@
 add_subdirectory(StaticSearchTable)
+add_subdirectory(DynamicSearchTable)
