@@ -33,7 +33,6 @@
 
 # Cmake configuration
 cmake-build-debug/
-test/
 build/
 .vs
 .vscode
