@@ -111,7 +111,7 @@ public:
 private:
     // p是叶子节点
     void remove_case1(struct node *p){
-        if(p == root){
+        if(p == root){      // 单独考虑root
             delete p;
             root = nullptr;
             return;
@@ -143,7 +143,7 @@ private:
     // p是中间节点，左或右孩子不为nullptr
     void remove_case3(struct node *p){
         struct node *child = p->lchild == nullptr ? p->rchild : p->lchild;
-        if(p == root){
+        if(p == root){      // 单独考虑root
             root = child;
             free(p);
             return;
