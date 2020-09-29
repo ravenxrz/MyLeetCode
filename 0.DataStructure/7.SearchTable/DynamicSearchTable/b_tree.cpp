@@ -140,7 +140,7 @@ private:
     }
     
     // 插入key的辅助函数
-    // note: 调用本函数时，t不能满
+    // note: 调用本函数时，nd不能满
     void insert_non_full(struct node *nd, int key)
     {
         int i = nd->n - 1;
@@ -229,7 +229,7 @@ private:
             int pred = get_pred(nd, idx);
             nd->keys[idx] = pred;
             _remove(nd->children[idx], pred);
-        } else if (nd->children[idx + 1]->n >= nd->children[idx + 1]->t) { /* 用后去代替key */
+        } else if (nd->children[idx + 1]->n >= nd->children[idx + 1]->t) { /* 用后驱代替key */
             int succ = get_succ(nd, idx);
             nd->keys[idx] = succ;
             _remove(nd->children[idx], succ);
