@@ -4,7 +4,7 @@
  * 实现说明：
  * 1.使用最小度 t 来定义一个node的key数量range
  * 2.在insert操作中，从root往下遍历时，发现有节点key数量过多时，就执行split，避免多次 IO（常规split可能造成级联的split）
- * 3.在delete操作中，从root往下遍历时，发现有节点key数量过少时，立即填充，避免多次IO（常规delete可能造成级联的delete）
+ * 3.在delete操作中，从root往下遍历时，发现有节点key数量过少时，立即填充，避免多次IO（常规delete可能造成级联的merge）
  */
 #include <iostream>
 #include <vector>
