@@ -32,7 +32,7 @@ public:
         cout << "\n";
     }
     
-    // success return that node, else nullptr
+    // success return founded node, else nullptr
     struct node *search(const string &key){
         struct node *cur = root;
         for(int i = 0;i<key.size();i++){
@@ -42,7 +42,7 @@ public:
                 return nullptr;
             }
         }
-        /* 默认 */
+        
         if(cur ->is_end_of_word) return cur;
         else return nullptr;
     }
@@ -79,11 +79,11 @@ private:
         assert(nd != nullptr);
         
         if(i == key.size() - 1){    /* key的末尾 */
-            if(nd->is_end_of_word && nd->num == 1){    /* 删除本节点，父亲节点少一个孩子 */
+            if(nd->is_end_of_word && nd->num == 1){    /* end of word节点且只有自身引用 */
                 p->num--;
                 p->children[key[i]-'a'] = nullptr;
                 delete nd;
-            }else if(nd->is_end_of_word){
+            }else if(nd->is_end_of_word){       /* end of word节点，但是存在孩子节点引用 */
                 nd->num--;
             }
             nd->is_end_of_word = false;
