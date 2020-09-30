@@ -3,33 +3,17 @@
 //
 #include <iostream>
 #include <vector>
+#include <set>
+#include <algorithm>
 using namespace std;
 
-class A;
-class B;
-
-class A{
-    friend B;
-public:
-private:
-    int a;
-};
-
-class B{
-    void print(const A &ca){
-        cout << ca.a;
-    }
-private:
-    int b;
-};
-
-
-int main(void)
+int main()
 {
-    vector<int> vec1 ={1,2,3,4};
-    vector<vector<int>> vec2(2,vector<int>(3,0));
-    cout << "hello" << endl;
-
-
+    vector<int> vec{1,1,1,2,2,2,3,3,3};
+    set<int> set(vec.begin(),vec.end());
+    for(const auto val: set){
+        cout << val << " ";
+    }
+    
     return 0;
 }
