@@ -14,7 +14,7 @@ private:
         char c;
         struct node* children[ALPHABET_SIZE];
         bool is_end_of_word;
-        int num;        /* 不为空的children数量 */
+        int num;        /* 当前node被多少node引用，孩子节点或 end of word node 会引用 */
         /* 还可以有一个数据域，但是不影响tire tree实现,所以未加入 */
     
         node(char c, bool isEndOfWord) : c(c), is_end_of_word(isEndOfWord),num(0) {
@@ -34,87 +34,71 @@ public:
     
     // success return that node, else nullptr
     struct node *search(const string &key){
-        int i = 0;
-        int j = key[i] - 'a';
         struct node *cur = root;
-    
-        while(i < key.size() -1 && cur->children[j] != nullptr){
-            cur = cur->children[j];
-            i++;
-            j = key[i] - 'a';
-        }
-        
-        if(i< key.size() -1){    /* 搜索中途tire树缺失对应字符 */
-            return nullptr;
-        }
-        /* 搜索到key的倒数第二个字符，最后检测最后一个字符 */
-        if(i == key.size()-1){               /* 检查最后一个字符 */
-            j = key[i] - 'a';
-            if(cur->children[j] != nullptr && cur->children[j]->is_end_of_word){
-                return cur->children[j];
+        for(int i = 0;i<key.size();i++){
+            int idx = key[i] - 'a';
+            cur = cur->children[idx];
+            if(cur == nullptr){
+                return nullptr;
             }
         }
         /* 默认 */
-        return nullptr;
+        if(cur ->is_end_of_word) return cur;
+        else return nullptr;
     }
     
     void insert(const string &key){
-        int i = 0;
-        int j = key[i] - 'a';
         struct node *cur = root;
-        
-        while(i < key.size() - 1){
-            if(cur->children[j] == nullptr){    /* 没有该字符 */
-                cur->children[j] = new node(key.at(i),false);
+        for(int i = 0;i<key.size();i++){
+            int idx = key[i] - 'a';
+            if(cur->children[idx] == nullptr){
+                cur->children[idx] = new node(key[i],false);
                 cur->num++;
             }
-            cur = cur->children[j];
-            j = key[++i] - 'a';
+            cur = cur->children[idx];
         }
-        /* 最后一个字符打上 is_end_of_word标记 */
-        if(cur->children[j] == nullptr){
-            cur->children[j] = new node(key.at(i),true);
-            cur->num++;
-        }else{
-            cur->children[i]->is_end_of_word = true;
-        }
+        cur->is_end_of_word = true;
+        cur->num++;
     }
     
     void remove(const string &key){
-        /* 首先找到指定节点 */
-        int i = 0;
-        int j = key[i] - 'a';
-        struct node *cur = root;
-        struct node *p = cur;
+        int idx = key[0] - 'a';
+        _remove(key,root,root->children[idx],0);
         
-        while(i<key.size()-1 && cur->children[j] != nullptr){
-            p = cur;
-            cur = cur->children[j];
-            j = key[++i]-'a';
-        }
-        if(cur->children[j] == nullptr){
-            cerr<<"no such key found\n";
-            return;
-        }
-        if(i == key.size()-1){  /* 最后一个字符单独处理 */
-            if(cur->children[j] != nullptr && cur->children[j]->is_end_of_word){
-                /* 找到该key */
-                p = cur;
-                cur = cur->children[j];
-            }
-        }
-        
-        if(cur->num == 0){   /* 没有孩子节点 */
-            assert(p->children[j] == cur);
-            delete cur;
-            p->children[j] = nullptr;
-            p->num--;
-        }else{              /* 还有孩子节点，说明是其他key的前缀 */
-            cur->is_end_of_word = false;
-        }
     }
     
 private:
+    /**
+     * 递归删除node， i是key的偏移量
+     * @param key 要删除的key
+     * @param p nd的父亲节点
+     * @param nd 指向tire树中字符=key[i]的节点
+     * @param i key的偏移量
+     */
+    void _remove(const string &key,struct node *p, struct node *nd, int i){
+        assert(nd != nullptr);
+        
+        if(i == key.size() - 1){    /* key的末尾 */
+            if(nd->is_end_of_word && nd->num == 1){    /* 删除本节点，父亲节点少一个孩子 */
+                p->num--;
+                p->children[key[i]-'a'] = nullptr;
+                delete nd;
+            }else if(nd->is_end_of_word){
+                nd->num--;
+            }
+            nd->is_end_of_word = false;
+            return;
+        }
+        
+        int idx = key[i+1] - 'a';
+        _remove(key,nd,nd->children[idx],i+1);
+        if(nd->num == 0){    /* 删除本节点，父亲节点少一个孩子 */
+            p->num--;
+            p->children[key[i]-'a'] = nullptr;
+            delete nd;
+        }
+    }
+    
     void _traverse(struct node *nd){
         if(nd == nullptr){
             return;
@@ -137,28 +121,25 @@ private:
 int main()
 {
     tire_tree tree;
-    string keys[] = {"the", "a", "there",
-                     "answer", "any", "by",
-                     "bye", "their" };
     
-    int n = sizeof(keys)/sizeof(keys[0]);
+    // Input keys (use only 'a' through 'z'
+    // and lower case)
+    string keys[] = { "the", "hero", "heroplane" };
+    int n = sizeof(keys) / sizeof(keys[0]);
     
-    for(int i = 0;i<n;i++){
+    // Construct trie
+    for (int i = 0; i < n; i++)
         tree.insert(keys[i]);
-    }
     
-    tree.traverse();
+    // Search for different keys
+    tree.search("the") ? cout << "Yes\n" : cout << "No\n";
+    tree.search("these") ? cout << "Yes\n" : cout << "No\n";
     
-    for(int i = 0;i<n;i++){
-        cout << (tree.search(keys[i]) != nullptr) << endl;
-    }
+    tree.remove("heroplane");
+    tree.search("hero") ? cout << "Yes\n" : cout << "No\n";
     
-    tree.remove("the");
-    cout <<  (tree.search("the") != nullptr) << endl;
-    tree.remove("there");
-    cout <<  (tree.search("there") != nullptr) << endl;
-
-    cout <<  (tree.search("their") != nullptr) << endl;
+    tree.remove("hero");
+    tree.search("hero") ? cout << "Yes\n" : cout << "No\n";
     return 0;
 }
 
