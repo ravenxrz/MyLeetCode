@@ -1,0 +1,1 @@
+add_executable(simple_hash_table simple_hash_table.cpp)
