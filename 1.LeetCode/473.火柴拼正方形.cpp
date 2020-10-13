@@ -3,11 +3,6 @@
  *
  * [473] 火柴拼正方形
  */
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
 // @lc code=start
 class Solution {
 public:
@@ -93,11 +88,3 @@ public:
     }
 };
 // @lc code=end
-
-int main()
-{
-    Solution so;
-    vector<int> vec{1,2,3,4,5,5};
-    cout << so.makesquare(vec);
-    return 0;
-}
