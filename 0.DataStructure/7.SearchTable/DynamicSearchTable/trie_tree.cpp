@@ -1,6 +1,6 @@
 /**
  * Created by a2855 on 2020/9/30.
- * 26字母tire树实现
+ * 26字母trie树实现
  */
 #include <iostream>
 #include <cassert>
@@ -8,22 +8,22 @@ using namespace std;
 
 #define ALPHABET_SIZE 26
 
-class tire_tree{
+class trie_tree{
 private:
     struct node{
         char c;
         struct node* children[ALPHABET_SIZE];
         bool is_end_of_word;
-        int num;        /* 当前node被多少node引用，孩子节点或 end of word node 会引用 */
-        /* 还可以有一个数据域，但是不影响tire tree实现,所以未加入 */
+        int ref_num;        /* 当前node被多少node引用，孩子节点或 end of word node 会引用 */
+        /* 还可以有一个数据域，但是不影响trie tree实现,所以未加入 */
     
-        node(char c, bool isEndOfWord) : c(c), is_end_of_word(isEndOfWord),num(0) {
+        node(char c, bool isEndOfWord) : c(c), is_end_of_word(isEndOfWord),ref_num(0) {
             fill(begin(children),end(children),nullptr);
         }
     };
 public:
     
-    tire_tree(){
+    trie_tree(){
         root = new node('$', false);
     }
     
@@ -53,15 +53,17 @@ public:
             int idx = key[i] - 'a';
             if(cur->children[idx] == nullptr){
                 cur->children[idx] = new node(key[i],false);
-                cur->num++;
+                cur->ref_num++;
             }
             cur = cur->children[idx];
         }
         cur->is_end_of_word = true;
-        cur->num++;
+        cur->ref_num++;
     }
     
     void remove(const string &key){
+        if(search(key) == nullptr)  // 没有该key，无法删除
+            return;
         int idx = key[0] - 'a';
         _remove(key,root,root->children[idx],0);
         
@@ -72,19 +74,19 @@ private:
      * 递归删除node， i是key的偏移量
      * @param key 要删除的key
      * @param p nd的父亲节点
-     * @param nd 指向tire树中字符=key[i]的节点
+     * @param nd 指向trie树中字符=key[i]的节点
      * @param i key的偏移量
      */
     void _remove(const string &key,struct node *p, struct node *nd, int i){
         assert(nd != nullptr);
         
         if(i == key.size() - 1){    /* key的末尾 */
-            if(nd->is_end_of_word && nd->num == 1){    /* end of word节点且只有自身引用 */
-                p->num--;
+            if(nd->is_end_of_word && nd->ref_num == 1){    /* 独立节点：end of word节点且只有自身引用 */
+                p->ref_num--;
                 p->children[key[i]-'a'] = nullptr;
                 delete nd;
-            }else if(nd->is_end_of_word){       /* end of word节点，但是存在孩子节点引用 */
-                nd->num--;
+            }else if(nd->is_end_of_word){       /* 非独立节点 & end of word节点，但是存在孩子节点引用 */
+                nd->ref_num--;
             }
             nd->is_end_of_word = false;
             return;
@@ -92,8 +94,8 @@ private:
         
         int idx = key[i+1] - 'a';
         _remove(key,nd,nd->children[idx],i+1);
-        if(nd->num == 0){    /* 删除本节点，父亲节点少一个孩子 */
-            p->num--;
+        if(nd->ref_num == 0){    /* 删除本节点，父亲节点少一个孩子 */
+            p->ref_num--;
             p->children[key[i]-'a'] = nullptr;
             delete nd;
         }
@@ -120,7 +122,7 @@ private:
 // driver
 int main()
 {
-    tire_tree tree;
+    trie_tree tree;
     
     // Input keys (use only 'a' through 'z'
     // and lower case)
