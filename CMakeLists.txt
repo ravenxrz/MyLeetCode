@@ -4,4 +4,5 @@ project(MyLeetCode)
 set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(0.DataStructure)
+add_subdirectory(2.Others)
 add_subdirectory(Test)
