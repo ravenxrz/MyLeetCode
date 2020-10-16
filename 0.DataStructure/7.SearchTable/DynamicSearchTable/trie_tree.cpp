@@ -87,8 +87,9 @@ private:
                 delete nd;
             }else if(nd->is_end_of_word){       /* 非独立节点 & end of word节点，但是存在孩子节点引用 */
                 nd->ref_num--;
+                nd->is_end_of_word = false;
             }
-            nd->is_end_of_word = false;
+
             return;
         }
         
