@@ -17,7 +17,7 @@ public:
     {        
         vector<vector<int>> ans;
 
-        if(nums.size() == 0)
+        if(ans.size() == 0)
             return ans;
 
         // 排序
@@ -38,9 +38,9 @@ public:
                         l++;
                         r--;
                         // 跳过相同值
-                        while (nums[l] == nums[l-1])
+                        while (l< r && nums[l] == nums[l-1])
                             l++;
-                        while(nums[r] == nums[r+1]){
+                        while(l < r && nums[r] == nums[r+1]){
                             r--;
                         }
                     }
