@@ -6,7 +6,6 @@
 #include <set>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 using namespace std;
 
 // @lc code=start
@@ -53,5 +52,12 @@ public:
         }
         return ans;
     }
-};
-// @lc code=end
+};// @lc code=end
+
+
+int main(){
+    vector<int> input { -1, 0, 1, 2, -1, -4 };
+    Solution sol;
+    sol.threeSum(input);
+    return 0;
+}
