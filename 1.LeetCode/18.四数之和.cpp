@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
+反转
 // @lc code=start
 class Solution
 {
@@ -17,7 +17,7 @@ public:
     {        
         vector<vector<int>> ans;
 
-        if(ans.size() == 0)
+        if(nums.size() == 0)
             return ans;
 
         // 排序
@@ -64,7 +64,7 @@ public:
 
 int main()
 {
-    vector<int> v{1, 0, -1, 0, -2, 2};
+    vector<int> v{0,0,0,0};
     Solution sol;
     sol.fourSum(v,0);
     return 0;
