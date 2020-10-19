@@ -17,15 +17,15 @@ public:
     {        
         vector<vector<int>> ans;
 
-        if(nums.size() == 0)
+        if(nums.empty())
             return ans;
 
         // 排序
         sort(nums.begin(), nums.end());
 
-        for (int idx1 = 0; idx1 < nums.size() - 3; idx1++)
+        for (int idx1 = 0; idx1+3 < nums.size(); idx1++)
         {
-            for (int idx2 = idx1 + 1; idx2 < nums.size() - 2; idx2++)
+            for (int idx2 = idx1 + 1; idx2+2 < nums.size(); idx2++)
             {
                 int l = idx2 + 1, r = nums.size() - 1;
                 while(l < r){
@@ -38,9 +38,9 @@ public:
                         l++;
                         r--;
                         // 跳过相同值
-                        while (nums[l] == nums[l-1])
+                        while (l< r && nums[l] == nums[l-1])
                             l++;
-                        while(nums[r] == nums[r+1]){
+                        while(l < r && nums[r] == nums[r+1]){
                             r--;
                         }
                     }
@@ -48,11 +48,16 @@ public:
                 
             
                 // 跳过邻近相同的value
-                while (nums[idx2 + 1] == nums[idx2])
+                while (idx2+1 < nums.size() && nums[idx2 + 1] == nums[idx2])
                 {
                     idx2++;
                 }
                 // 由for循环的idx2++,保证下一次nums[idx2]是不同值
+            }
+
+            // 跳过临近相同value
+            while(idx1+1 < nums.size() && nums[idx1+1] == nums[idx1]){
+                idx1++;
             }
         }
 
@@ -64,8 +69,14 @@ public:
 
 int main()
 {
-    vector<int> v{1, 0, -1, 0, -2, 2};
+    vector<int> v{-1,-5,-5,-3,2,5,0,4};
     Solution sol;
-    sol.fourSum(v,0);
+    const vector<vector<int>> &ans = sol.fourSum(v, -7);
+    for(const vector<int> &vals : ans){
+        for(const int &val : vals){
+            cout << val << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }

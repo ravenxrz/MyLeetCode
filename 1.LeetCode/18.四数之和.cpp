@@ -17,15 +17,12 @@ public:
     {        
         vector<vector<int>> ans;
 
-        if(ans.size() == 0)
-            return ans;
-
         // 排序
         sort(nums.begin(), nums.end());
 
-        for (int idx1 = 0; idx1 < nums.size() - 3; idx1++)
+        for (int idx1 = 0; idx1+3 < nums.size(); idx1++)
         {
-            for (int idx2 = idx1 + 1; idx2 < nums.size() - 2; idx2++)
+            for (int idx2 = idx1 + 1; idx2+2 < nums.size(); idx2++)
             {
                 int l = idx2 + 1, r = nums.size() - 1;
                 while(l < r){
@@ -48,11 +45,16 @@ public:
                 
             
                 // 跳过邻近相同的value
-                while (nums[idx2 + 1] == nums[idx2])
+                while (idx2+1 < nums.size() && nums[idx2 + 1] == nums[idx2])
                 {
                     idx2++;
                 }
                 // 由for循环的idx2++,保证下一次nums[idx2]是不同值
+            }
+
+            // 跳过临近相同value
+            while(idx1+1 < nums.size() && nums[idx1+1] == nums[idx1]){
+                idx1++;
             }
         }
 
