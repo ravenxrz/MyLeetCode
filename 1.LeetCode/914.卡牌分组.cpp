@@ -1,8 +1,10 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-using namespace std;
+/*
+ * @lc app=leetcode.cn id=914 lang=cpp
+ *
+ * [914] 卡牌分组
+ */
 
+// @lc code=start
 class Solution {
 public:
     int gcd (int a, int b) {
@@ -39,15 +41,5 @@ public:
     }
 };
 
+// @lc code=end
 
-
-
-int main()
-{
-
-    Solution sol;
-    vector<int> vec { 1,1,1,1,2,2,2,2,2,2};
-    cout << sol.hasGroupsSizeX(vec) << endl;
-
-    return 0;
-}

@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-反转
+
 // @lc code=start
 class Solution
 {
