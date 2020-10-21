@@ -74,10 +74,3 @@ public:
 };
 // @lc code=end
 
-int main()
-{
-    Solution sol;
-    sol.combine(4,2);
-
-    return 0;
-}
