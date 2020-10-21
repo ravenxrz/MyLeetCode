@@ -10,7 +10,6 @@
 #include <string>
 #include <stack>
 #include <sstream>
-#include <regex>
 using namespace std;
 
 // @lc code=start
@@ -18,8 +17,7 @@ class Solution {
 public:
     string simplifyPath(string path) {
         // 去重
-        regex pattern("/{2,}");
-        path = regex_replace(path,pattern,"/");
+        unique(path.begin(), path.end());
         // 去掉最后一个/
         if(path.at(path.size()-1) == '/'){
             path = path.substr(0, path.size() - 1);
@@ -35,28 +33,27 @@ public:
                 if(!stk.empty()){
                     stk.pop();
                 }
-            }else if(!token.empty()){
+            }else{
                 stk.push(token);
             }
         }
 
-        // 回到了根路径
-        if(stk.empty())
-            return "/";
-
-        // 否则，还原真实路径
+        // 还原
         token.clear();
         while(!stk.empty()){
-            token.insert(0,"/"+stk.top());
+            token = "/" + stk.top() + token;
             stk.pop();
         }
+        // 反序
+        
         return token;
     }
-};// @lc code=end
+};
+// @lc code=end
 
 int main()
 {
     Solution sol;
-    cout << sol.simplifyPath("/a//b////c/d//././/..");
+    sol.simplifyPath("/home/");
     return 0;
 }
