@@ -41,6 +41,7 @@ public:
             p2 = p2->next;
             counter++;
         }
+            return letters.at(mid);
         // 此时p1 -- p2之间 [p1,p2] 中元素共有n个
         while(p2->next!=nullptr){
             pp1 = p1;
