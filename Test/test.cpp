@@ -1,56 +1,42 @@
 /*
- * @lc app=leetcode.cn id=17 lang=cpp
+ * @lc app=leetcode.cn id=744 lang=cpp
  *
- * [17] 电话号码的字母组合
+ * [744] 寻找比目标字母大的最小字母
  */
-#include <iostream>
+
 #include <vector>
-#include <string>
+#include <iostream>
+#include <algorithm>
 using namespace std;
-
-
 
 // @lc code=start
 class Solution {
 public:
-    vector<string> ans;
-
-    vector<string> strmapping = {
-        "",         // 占位符
-        "",         // 占位符
-        "abc",      //2
-        "def",      //3
-        "ghi",      //4
-        "jkl",      //5
-        "mno",      //6
-        "pqrs",     //7
-        "tuv",      //8
-        "wxyz"      //9
-    };
-
-    void dfs(string digits,  string one, int didx, int oidx){
-            if(oidx == one.size()){
-                ans.push_back(one);
-                return ;
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        // 避免 ['z','a','b'],'z'的情况
+        sort(letters.begin(),letters.end());
+        // 二分查找
+        int i = 0, j = letters.size() - 1;
+        int mid = (i+j)/2;
+        while(i<j){
+            if(letters.at(mid) < target){
+                i = mid + 1;
+            }else if(letters.at(mid) > target){
+                j = mid - 1;
+            }else{  // 找到相等的
+                while(letters.at((mid+1) % letters.size()) == letters.at(mid)){
+                    mid = (mid+1) % letters.size();
+                }
+                return letters.at((mid + 1) % letters.size());
             }
-
-            int map_idx = digits[didx] - '0';
-            for(int i = 0;i<strmapping[map_idx].size();i++){
-                // put
-                one[oidx] = strmapping[map_idx].at(i);
-                dfs(digits,one,didx+1,oidx+1);
-                // remove
-                dfs(digits,one,didx+1,oidx);
-            }
-    }
-
-    vector<string> letterCombinations(string digits) {
-        if(digits.empty())
-            return ans;
-
-        const string& one(digits);
-        dfs(digits, one,0,0 );
-        return ans;
+            mid = (i + j) / 2;
+        }
+        //  i>=j， 说明没有目标值
+        if(letters.at(mid) > target){
+            return letters.at(mid);
+        }else {
+            return letters.at((i + 1) % letters.size());
+        }
     }
 };
 // @lc code=end
@@ -58,9 +44,9 @@ public:
 int main()
 {
     Solution sol;
-    sol.letterCombinations("23");
-    for(const string &str : sol.ans){
-        cout << str << endl;
-    }
+    //['e','e','e','e','e','e','n','n','n','n']
+    //'n'
+    vector<char> vec{'z','a','b'};
+    cout << sol.nextGreatestLetter(vec,'z');
     return 0;
 }
