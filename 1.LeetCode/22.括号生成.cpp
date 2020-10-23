@@ -1,16 +1,4 @@
 /*
- * @lc app=leetcode.cn id=744 lang=cpp
- *
- * [744] 寻找比目标字母大的最小字母
- */
-
-#include <vector>
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-// @lc code=start
-/*
  * @lc app=leetcode.cn id=22 lang=cpp
  *
  * [22] 括号生成
@@ -24,6 +12,15 @@ class Solution {
 public:
     vector<string> ans;
 
+    /**
+     * @brief 
+     * 
+     * @param tmp 临时保存每一个计算中间结果
+     * @param effect_counter 当前有效的"(" 个数，  当"(" 遇上")"时， effect_counter--
+     * @param total_counter   当前总共的 "(" 个数
+     * @param idx 当前位置
+     * @param n 总共需要生成的括号对数
+     */
     void dfs(string &tmp, int effect_counter, int total_counter, int idx, int n){
         if(total_counter == n && effect_counter == 0){
             ans.push_back(tmp);
@@ -54,15 +51,3 @@ public:
 };
 // @lc code=end
 
-
-// @lc code=end
-
-int main()
-{
-    Solution sol;
-    const vector<string> &vector = sol.generateParenthesis(3);
-    for(const string &str : vector){
-        cout << str << endl;
-    }
-    return 0;
-}
