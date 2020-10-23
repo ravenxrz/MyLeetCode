@@ -1,36 +1,11 @@
 /*
- * @lc app=leetcode.cn id=744 lang=cpp
+ * @lc app=leetcode.cn id=62 lang=cpp
  *
- * [744] 寻找比目标字母大的最小字母
+ * [62] 不同路径
  */
 
-#include <vector>
-#include <iostream>
-#include <algorithm>
-using namespace std;
-
-// @lc code=start
-/*
- * @lc app=leetcode.cn id=22 lang=cpp
- *
- * [22] 括号生成
- */
-#include <vector>
-#include <string>
-using namespace std;
-
-// @lc code=start
-/*
- * @lc app=leetcode.cn id=6 lang=cpp
- *
- * [6] Z 字形变换
- */
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 #include <stack>
+#include <vector>
 using namespace std;
 
 // @lc code=start
@@ -125,7 +100,8 @@ public:
        // 循环put
        for(int i = 2;i<=m;i++){
            for(int j = 2;j<=n;j++){
-               for(int k = 1;k<=i;k++){
+               for(int k = 1;k<=i;k++){ 
+                   // 可以优化， 如dp[2][3] = dp[3][2] ， 只用计算一半的矩阵即可。
                    dp[i][j] += dp[i-k+1][j-1];
                }
            }
@@ -136,11 +112,3 @@ public:
 };
 // @lc code=end
 
-
-
-int main()
-{
-    Solution sol;
-    cout << sol.uniquePaths(3,4);
-    return 0;
-}
