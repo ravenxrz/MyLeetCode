@@ -36,11 +36,9 @@ void dfs(string tmp)
     _dfs(tmp,0);
 }
 
-
 int main()
 {
 
     dfs("123");
-
     return 0;
 }
