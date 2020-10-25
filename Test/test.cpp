@@ -11,45 +11,49 @@
 using namespace std;
 
 // @lc code=start
+#include <vector>
+#include <algorithm>
+using namespace std;
+// @lc code=start
 class Solution {
 public:
+    vector<vector<int>> ans;
 
-    int uniquePathsWithObstacles(vector<vector<int>> &obstacleGrid) {
-        int m = obstacleGrid.size();
-        if (m == 0)
-            return 0;
-        int n = obstacleGrid.at(0).size();
-
-        // dp, 多申请一个第0行和第0列，方便计算
-        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
-
-        // 因为后续采用行扫描，所以这里需要提前填充 最后一列 mx1
-        for (int i = m - 1; i >= 0; i--) {
-            if (obstacleGrid[i][n - 1] == 1) {
-                break;
-            }
-            dp[m - i][1] = 1;
+    void dfs(vector<int> &nums, vector<int> &tmp, int idx){
+        static vector<bool> visit(nums.size(),false);
+        if(idx == nums.size()){
+            ans.push_back(tmp);
+            return;
         }
 
-        // dp 核心算法
-        for (int i = 1; i <= m; i++) {
-            for (int j = 2; j <= n; j++) {
-                if (obstacleGrid[m - i][n - j] == 1) {
-                    dp[i][j] = 0;
-                    continue;
-                } else {
-                    // 行扫描
-                    for (int k = 1; k <= i; k++) {
-                        if (obstacleGrid[m - (i - k + 1)][n - j] == 1)
-                            break;
-                        if (obstacleGrid[m - (i - k + 1)][n - j + 1] == 1)
-                            continue;
-                        dp[i][j] += dp[i - k + 1][j - 1];
-                    }
-                }
-            }
+        for (int i = 0; i < nums.size();i++){
+            if(visit[i])
+                continue;
+            // put
+            visit[i] = true;
+            int t_val = tmp[idx];
+            tmp[idx] = nums[i];
+            dfs(nums, tmp, idx + 1);
+            // remove
+            visit[i] = false;
+            // 跳过所有和tmp[idx]相同的元素
+            while(i < nums.size() && tmp[idx] == nums[i])
+                i++;
+            i--;        // 后面for循环会再+1，所以这里-1
+            tmp[idx] = t_val;
         }
-        return dp[m][n];
+    }
+
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        /*  sort(nums.begin(), nums.end());
+         vector<vector<int>> ans;
+         do{
+             ans.push_back(nums);
+         } while (next_permutation(nums.begin(), nums.end())); */
+        sort(nums.begin(),nums.end());
+        vector<int> tmp(nums.size(),0x7fffffff);
+        dfs(nums, tmp, 0);
+        return ans;
     }
 };
 // @lc code=end
@@ -63,6 +67,12 @@ int main() {
             {0},
             {0}
     };
-    cout << sol.uniquePathsWithObstacles(grid);
+    vector<int> nums{1,1,1,2};
+    for(auto vec_val : sol.permuteUnique(nums)){
+        for(auto val : vec_val){
+            cout << val << " ";
+        }
+        cout << endl;
+    }
     return 0;
 }
