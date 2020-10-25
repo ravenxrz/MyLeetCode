@@ -1,19 +1,9 @@
 /*
- * @lc app=leetcode.cn id=63 lang=cpp
+ * @lc app=leetcode.cn id=48 lang=cpp
  *
- * [63] 不同路径 II
+ * [48] 旋转图像
  */
 
-#include <iostream>
-#include <vector>
-#include <stack>
-
-using namespace std;
-
-// @lc code=start
-#include <vector>
-#include <algorithm>
-using namespace std;
 // @lc code=start
 class Solution {
 public:
@@ -47,17 +37,3 @@ public:
 };
 // @lc code=end
 
-int main() {
-    //
-    Solution sol;
-    vector<vector<int>> image
-            {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
-    sol.rotate(image);
-    for(int i = 0;i<image.size();i++){
-        for(int j = 0;j<image[i].size();j++){
-            cout << image[i][j] << " ";
-        }
-        cout << endl;
-    }
-    return 0;
-}
