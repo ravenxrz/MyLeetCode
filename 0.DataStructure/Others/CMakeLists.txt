@@ -1,0 +1,3 @@
+add_executable(test_skip_list test_skip_list.cpp)
+add_executable(seg_tree seg_tree.cpp)
+add_executable(seg_tree_sum_lazy_tag seg_tree_sum_lazy_tag.cpp)
