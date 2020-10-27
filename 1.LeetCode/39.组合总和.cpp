@@ -23,8 +23,8 @@ public:
             return;
         }
 
-        int remain_num = target / candidates[idx];
-        for (int i = 0; i <= remain_num;i++){
+        int remain_nums = target / candidates[idx];
+        for (int i = 0; i <= remain_nums;i++){
             // put
             // i代表当前数字put多少次
             for (int j = 0; j < i;j++){
@@ -41,7 +41,7 @@ public:
 
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         // 预处理
-        sort(candidates.rbegin(),candidates.rend());
+        // sort(candidates.rbegin(),candidates.rend());
         vector<int> tmp;
         dfs(candidates, 0, tmp, target);
         return ans;
@@ -49,15 +49,3 @@ public:
 };
 // @lc code=end
 
-int main()
-{
-    Solution sol;
-    vector<int> candidates{2,3,6,7};
-    for(auto &vec :sol.combinationSum(candidates,7)){
-        for(auto val : vec){
-            cout << val << " ";
-        }
-        cout << endl;
-    }
-    return 0;
-}
