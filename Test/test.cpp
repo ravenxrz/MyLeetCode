@@ -51,13 +51,15 @@ public:
 
 int main()
 {
-    Solution sol;
-    vector<int> candidates{2,3,6,7};
-    for(auto &vec :sol.combinationSum(candidates,7)){
-        for(auto val : vec){
-            cout << val << " ";
-        }
-        cout << endl;
-    }
+//    Solution sol;
+//    vector<int> candidates{2,3,6,7};
+//    for(auto &vec :sol.combinationSum(candidates,7)){
+//        for(auto val : vec){
+//            cout << val << " ";
+//        }
+//        cout << endl;
+//    }
+
+
     return 0;
 }
