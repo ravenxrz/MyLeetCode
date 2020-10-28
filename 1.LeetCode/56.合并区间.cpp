@@ -14,17 +14,17 @@ public:
     vector<vector<int>> ans;
 
     static bool compare(const vector<int> &v1, const vector<int> &v2){
-        if(v1[0] != v2[0]){
-            return (v1[0] - v2[0]) < 0;
+        if(v1.at(0) != v2.at(0)){
+            return (v1.at(0) - v2.at(0)) < 0;
         }else{
-            return (v1[1] - v2[1]) < 0;
+            return (v1.at(1) - v2.at(1)) < 0;
         }
     }
 
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         if(intervals.empty())
             return ans;
-
+        
         // 预处理
         sort(intervals.begin(), intervals.end(),compare);
         // 合并重叠
