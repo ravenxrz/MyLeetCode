@@ -4,143 +4,95 @@
  * [5] 最长回文子串
  */
 
-#include <string>
-#include <vector>
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <vector>
+
 using namespace std;
 
 // @lc code=start
 class Solution {
 public:
-    int max_len = 0;
-    int max_i = 0, max_j = 0;
 
-    bool check(const string &s, int start, int end){
-        return equal(s.begin()+start,s.begin()+(start+end+1)/2,s.rbegin()+(s.size()-end-1));
+    void center_expand(const string &s, vector<int> &len, int center, int left, int right){
+        // 中心扩展
+        while (left >= 0 && right < s.size()) {
+            if (s.at(left) != s.at(right)) {
+                len[center] = right - center -1 ; // 更新臂长
+                break;
+            }
+            left--;
+            right++;
+        }
+        if(left < 0 || right >= s.size()){
+            len[center] = right - center -1;
+        }
     }
 
-    /**
-     * 暴力法
-     * @param s
-     * @return
-     */
-    string method1(const string &s){
-        if(s.empty())
+    string longestPalindrome(string s) {
+        if (s.empty())
             return s;
 
-        // O(n^2) 暴力判断
-        for (int i = 0; i < s.length();i++){
-            for (int j = i; j < s.length();j++){
-                if(check(s,i,j)){
-                    // pass
-                    if(j-i+1>max_len){
-                        max_i = i;
-                        max_j = j;
-                        max_len = j - i + 1;
+        // step1: 初始化
+        // 首位，两两之间插入#
+        string new_s(s.size() * 2 + 1, '#');
+        for (int i = 0; i < s.size(); i++) {
+            new_s[2 * i + 1] = s.at(i);
+        }
+        s = new_s;
+
+        // step2: manacher算法
+        vector<int> len(s.size(), 0);     // 臂长
+        int max_pos = 0;    // 当前最长回文串的中心点
+        for (int i = 0; i < s.size(); i++) {
+            if (i >= max_pos + len[max_pos]) {     // 新点
+                center_expand(s,len,i,i,i);
+                // 更新最长中心点
+                if (len[max_pos] + max_pos < i + len[i]) {
+                    max_pos = i;
+                }
+            } else {      // 可能通过对称来计算
+                int i_ = 2 * max_pos - i;
+                // 分两种情况
+                if (len[i_] + i < max_pos + len[max_pos]) {
+                    // 情况1， 对称点所在回文串长度未能导致当前位置溢出臂长 即 len[i_] + i < len[max_pos]
+                    len[i] = len[i_];
+                } else {      //  len[i_] + i > len[max_pos]
+                    // 情况2， 对称点所在回文串长度导致当前位置溢出臂长，即 len[i_] + i >= len[max_pos]
+                    int right = max_pos + len[max_pos] + 1;
+                    int left = 2 * i - right;
+                    center_expand(s,len,i,left,right);
+                    // 更新最长中心点
+                    if (len[max_pos] + max_pos < i + len[i]) {
+                        max_pos = i;
                     }
                 }
             }
         }
-        return s.substr(max_i,max_j-max_i+1);
-    }
 
 
-
-    void inline dp_fill( vector<vector<bool>> &dp, int start, int end){
-        for(int i = start;i<=end;i++){
-            fill(dp[i].begin() + i, dp[i].begin() + end + 1, true);
-        }
-    }
-
-    /**
-     * @brief 动态规划
-     * 
-     * @param s 
-     * @return string 
-     */
-    string method2(const string &s){
-          if(s.empty())
-            return s;
-
-        const int s_len = s.length();
-        vector<vector<bool>> dp(s_len,vector<bool>(s_len,false));
-
-        // 初始化dp
-        // 当出现连续字符时，该段一定为true
-        {
-            int start = 0,end = 0;
-            while(1) {
-                while(end + 1 < s_len && s.at(end + 1) == s.at(end)){
-                    end++;
-                }
-                dp_fill(dp, start, end);
-                if(max_len < end-start+1){
-                    max_len = end-start+1;
-                    max_i = start;
-                    max_j = end;
-                }
-
-                if(end + 1 < s_len){
-                    // 更新新段起始索引
-                    end++;
-                    start = end;
-                }else{
-                    break;
-                }
-            }
-        }
-
-        // dp核心代码
-        for(int pos = 0;pos<s_len;pos++){
-            // 状态转移方程  dp[i][j] = dp[i+1][j-1] && s[i] == s[j];
-            int i = pos-1;
-            int j = pos+1;
-            // 找到右端起点
-            while(j<s_len && dp[pos][j] == dp[pos][j-1])
-                j++;
-            while(i >= 0 && j <s_len){
-                dp[i][j] = dp[i+1][j-1] && s[i] == s[j];
-                if(dp[i][j] && j-i+1 > max_len){
-                    max_len = j-i+1;
-                    max_i = i;
-                    max_j = j;
-                }
-                i--;j++;
-            }
-        }
-
-        return s.substr(max_i,max_len);
-    }
-
-    // 动态规划
-    string longestPalindrome(string s) {
-        int n = s.size();
-        vector<vector<int>> dp(n, vector<int>(n));
+        // step3: 求len中最长的元素
         string ans;
-        for (int l = 0; l < n; ++l) {
-            for (int i = 0; i + l < n; ++i) {
-                int j = i + l;
-                if (l == 0) {
-                    dp[i][j] = 1;
-                } else if (l == 1) {
-                    dp[i][j] = (s[i] == s[j]);
-                } else {
-                    dp[i][j] = (s[i] == s[j] && dp[i + 1][j - 1]);
-                }
-                if (dp[i][j] && l + 1 > ans.size()) {
-                    ans = s.substr(i, l + 1);
-                }
+        auto center_iter = max_element(len.begin(),len.end());
+        auto center_len = *center_iter;
+        auto center_loc = center_iter - len.begin();
+        auto left = center_loc - center_len;
+        auto right = center_loc + center_len;
+        while(left != right+1){
+            if(s.at(left) != '#'){
+                ans+=s.at(left);
             }
+            left++;
         }
+
         return ans;
     }
 };
 // @lc code=end
 
-
-int main(){
+int main() {
     Solution sol;
-    cout << sol.longestPalindrome("cbbd");
+    cout << sol.longestPalindrome("abb");
     return 0;
 }
