@@ -45,15 +45,22 @@ public:
         return s.substr(max_i,max_j-max_i+1);
     }
 
+
+
     void inline dp_fill( vector<vector<bool>> &dp, int start, int end){
         for(int i = start;i<=end;i++){
             fill(dp[i].begin() + i, dp[i].begin() + end + 1, true);
         }
     }
 
-    // 动态规划
-    string longestPalindrome(string s) {
-        if(s.empty())
+    /**
+     * @brief 动态规划
+     * 
+     * @param s 
+     * @return string 
+     */
+    string method2(const string &s){
+          if(s.empty())
             return s;
 
         const int s_len = s.length();
@@ -104,6 +111,29 @@ public:
         }
 
         return s.substr(max_i,max_len);
+    }
+
+    // 动态规划
+    string longestPalindrome(string s) {
+        int n = s.size();
+        vector<vector<int>> dp(n, vector<int>(n));
+        string ans;
+        for (int l = 0; l < n; ++l) {
+            for (int i = 0; i + l < n; ++i) {
+                int j = i + l;
+                if (l == 0) {
+                    dp[i][j] = 1;
+                } else if (l == 1) {
+                    dp[i][j] = (s[i] == s[j]);
+                } else {
+                    dp[i][j] = (s[i] == s[j] && dp[i + 1][j - 1]);
+                }
+                if (dp[i][j] && l + 1 > ans.size()) {
+                    ans = s.substr(i, l + 1);
+                }
+            }
+        }
+        return ans;
     }
 };
 // @lc code=end
