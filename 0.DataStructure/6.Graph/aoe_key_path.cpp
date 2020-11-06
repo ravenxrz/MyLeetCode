@@ -1,6 +1,6 @@
 /**
  * aoe关键路径求解
- * 图采用邻接链表表示
+ * 图采用邻接矩阵表示
  */
 #include <iostream>
 #include <stack>
