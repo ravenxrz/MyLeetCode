@@ -50,14 +50,14 @@ public:
             }
         }
         for(int j = 0;j<n;j++){
-            if(matrix[rx][j] == 0 && j != ry){
+            if(matrix[rx][j] == 0){
                 // 本列置0
                 for(int i = 0;i<m;i++){
                     matrix[i][j] = 0;
                 }
             }
         }
-        // rx ry列置0
+        // rx 行 ry列置0
         fill(matrix[rx].begin(),matrix[rx].end(),0);
         for(int i = 0;i<m;i++){
             matrix[i][ry] = 0;
