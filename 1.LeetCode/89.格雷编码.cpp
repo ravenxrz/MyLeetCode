@@ -4,11 +4,6 @@
  * [89] 格雷编码
  */
 
-#include <vector>
-#include <algorithm>
-#include <cmath>
-using namespace std;
-
 // @lc code=start
 class Solution {
 public:
@@ -35,9 +30,4 @@ public:
     }
 };
 // @lc code=end
-int main()
-{
-    Solution sol;
-    sol.grayCode(4);
-    return 0;
-}
+
