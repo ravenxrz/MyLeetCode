@@ -108,10 +108,3 @@ public:
     }
 };
 // @lc code=end
-
-int main()
-{
-    Solution sol;
-    const vector<TreeNode *> &vector = sol.generateTrees(8);
-    return 0;
-}
