@@ -26,14 +26,31 @@ struct ListNode {
 class Solution {
 public:
     ListNode *partition(ListNode *head, int x) {
-        if(head == nullptr) return head;
+        if(head == nullptr)
+            return nullptr;
 
-        ListNode *pi = head, *pj , *ppj;
+        // 变量声明
+        ListNode *pi,*ppi, *pj , *ppj;
+        ListNode* new_head;
+        pi = ppi = head;
+
+        // 当第一个节点就比x大时，需要特殊处理
+        bool head_large = false;
+        if(head->val >= x){
+            head_large = true;
+            new_head = new ListNode(x - 1);
+            new_head->next = head;
+            pi = ppi = new_head;
+        }
+
 
         // 找到第一个value 比 x小的node
-        while(pi != nullptr && pi->val >= x){
+        while(pi != nullptr && pi->val < x){
+            ppi = pi;
             pi = pi->next;
         }
+        if(pi == nullptr) return head;
+        pi = ppi;
         ppj = pi;
         pj = pi->next;
 
@@ -51,7 +68,7 @@ public:
                 pj = ppj->next;
             }
         }
-        return head;
+        return head_large ? new_head->next : head;
     }
 };
 // @lc code=end
