@@ -19,7 +19,6 @@ public:
      * @param num2
      * @return int
      */
-
     int report(int num1, int num2) const
     {
         int counter = 0;
@@ -51,8 +50,6 @@ public:
 
     int totalHammingDistance(vector<int>& nums)
     {
-        if(nums.empty())
-            return 0;
         const int len = sizeof(int) * 8;
         int ans = 0;
         // 记录每个bit位有多少个1
