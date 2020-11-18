@@ -1,6 +1,8 @@
-//
-// Created by a2855 on 2020/11/17.
-//
+/**
+ * 插入排序：
+ * 1. 普通插入排序
+ * 2. 折半插入排序
+ */
 
 #include "common.h"
 #include <chrono>
@@ -10,20 +12,14 @@ using namespace std;
 /**
  * 插入排序器
  */
-class InsertSorter {
-public:
-    static vector<int> &sort(vector<int> &nums) {
-        auto before = clock();
-//        normal_sort(nums);
+class InsertSorter : public Sorter{
+private:
+    void _sort(vector<int> &nums) override {
         binary_insert_sort(nums);
-        auto now = clock();
-        cout << "time elapsed: " << (double)(now-before)/CLOCKS_PER_SEC << endl;
-        return nums;
     }
 
-private:
     /* 普通插入排序 */
-    /* 测试结果：normal的insert sort 10*000数据量，0.205s  100*1000数据量。 20.52s */
+    /* 测试结果：normal的insert sort 10*1000数据量，0.205s  100*1000数据量。 20.52s */
     static vector<int> &normal_sort(vector<int> &nums) {
         int i, j;
         for (i = 1; i < nums.size(); i++) {
@@ -78,10 +74,10 @@ private:
 
 
 int main() {
-    vector<int> rnums = generateRandomNumbers(1000*100,1,1000*1000);
-//    print_nums(rnums);
-
-    InsertSorter::sort(rnums);
-//    print_nums(rnums);
+    vector<int> rnums = generateRandomNumbers(1000,1,1000*1000);
+    Sorter *sorter = new InsertSorter();
+    sorter->sort(rnums);
+    ::printNums(rnums);
+    delete sorter;
     return 0;
 }

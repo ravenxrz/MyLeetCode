@@ -11,6 +11,25 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <algorithm>
+
+class Sorter{
+public:
+    virtual ~Sorter() {
+
+    }
+
+    void sort(std::vector<int> &nums){
+        auto before = clock();
+        _sort(nums);
+        auto now = clock();
+        std::cout << "time elapsed: " << (double)(now-before)/CLOCKS_PER_SEC << std::endl;
+    }
+private:
+     virtual void _sort(std::vector<int> &nums){
+        std::sort(nums.begin(),nums.end());
+    }
+};
 
 /* 生成[start,end]之间的n个随机数 */
 std::vector<int> generateRandomNumbers(size_t n, int start=0, int end=100){
@@ -24,7 +43,7 @@ std::vector<int> generateRandomNumbers(size_t n, int start=0, int end=100){
     return nums;
 }
 
-void print_nums(const std::vector<int>& nums){
+void printNums(const std::vector<int>& nums){
     for(auto &val : nums){
         std::cout << val << " ";
     }
