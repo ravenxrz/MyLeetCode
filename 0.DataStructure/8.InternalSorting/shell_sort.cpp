@@ -22,7 +22,7 @@ private:
      * 10k数据量 0.006 s
      * 100k数据量 0.153 s
      */
-    static void shell_sort(vector<int> &nums, const vector<int> &delta) {
+    void shell_sort(vector<int> &nums, const vector<int> &delta) {
         int cur, cmp, tmp;
         for (auto &dlt : delta) {
             for (cur = 1 + dlt; cur < nums.size(); cur++) {
