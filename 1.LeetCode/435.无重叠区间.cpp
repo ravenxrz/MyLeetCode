@@ -20,11 +20,10 @@ public:
         return (interval1[0] >= interval2[0] && interval1[1] <= interval2[1]);
     }
     
-    // interval1 与 interval 2 没有完全包含关系，但有相交关系
+    // interval1 与 interval 2 有相交关系
     inline bool check_case2(const vector<int> &interval1, const vector<int> &interval2)
     {
-        return interval1[0] >= interval2[0] && interval1[0] < interval2[1] &&
-               interval1[1] >= interval2[1];
+        return   interval1[0] < interval2[1] && interval1[1] >= interval2[1];
     }
     
     int find_pre_idx(const vector<bool>& removed_element,int start){
@@ -51,8 +50,7 @@ public:
                 // 当前interval完全包含在前一个interval中
                 removed_element[pre_idx] = true;
                 ans++;
-                } else if (check_case1(intervals[pre_idx], intervals[i]) ||
-                    check_case2(intervals[i], intervals[pre_idx])) {
+                } else if (check_case2(intervals[i], intervals[pre_idx])) {
                 // 前一个interval完全包含在本interval中
                 removed_element[i] = true;
                 ans++;
@@ -72,5 +70,3 @@ private:
     }
 };
 // @lc code=end
-
-
