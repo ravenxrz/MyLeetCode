@@ -7,6 +7,8 @@
 class BubbleSorter : public Sorter{
     /**
      * 冒泡排序 复杂度O(n^2)
+     * 一个优化点是，当一次循环中，没有发生“交换”操作时，说明已经排好序，
+     * 直接跳出循环即可
      * 10k数据量 0.738 s
      * 100k数据量 77.5 s
      * @param nums
