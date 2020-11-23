@@ -7,7 +7,7 @@
 using namespace std;
 
 class HeapSorter : public Sorter {
-public:
+private:
     /**
      * 堆排序。 特点： 最差，平均的时间复杂度都是O(nlog(n)) 这是和快速排序相比的优点
      * 但是最初建立heap和调整heap都比较耗时

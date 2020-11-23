@@ -6,7 +6,6 @@
 using namespace std;
 
 class SelectionSorter : public Sorter {
-public:
 private:
     /**
      * 选择排序, 每次循环选择最小的element。 时间复杂度 O(n^2)
