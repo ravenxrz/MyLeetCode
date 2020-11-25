@@ -13,37 +13,40 @@
 #include <iostream>
 #include <algorithm>
 
+template <typename T>
 class Sorter{
 public:
     virtual ~Sorter() {
 
     }
 
-    void sort(std::vector<int> &nums){
+    void sort(std::vector<T> &nums){
         auto before = clock();
         _sort(nums);
         auto now = clock();
         std::cout << "time elapsed: " << (double)(now-before)/CLOCKS_PER_SEC << std::endl;
     }
 private:
-     virtual void _sort(std::vector<int> &nums){
+     virtual void _sort(std::vector<T> &nums){
         std::sort(nums.begin(),nums.end());
     }
 };
 
 /* 生成[start,end]之间的n个随机数 */
-std::vector<int> generateRandomNumbers(size_t n, int start=0, int end=100){
+template <typename T>
+std::vector<T> generateRandomNumbers(size_t n, int start=0, int end=100){
     assert(n > 0);
-    std::vector<int> nums;
+    std::vector<T> nums;
     srand((unsigned)time(0));
     for(size_t i = 0;i < n;i++){
         double rnum = (double)rand() / RAND_MAX *(end- start) + start; // [0,1]
-        nums.push_back((int)rnum);
+        nums.push_back((T)rnum);
     }
     return nums;
 }
 
-void printNums(const std::vector<int>& nums){
+template <typename T>
+void printNums(const std::vector<T>& nums){
     for(auto &val : nums){
         std::cout << val << " ";
     }

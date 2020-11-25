@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class SelectionSorter : public Sorter {
+class SelectionSorter : public Sorter<int> {
 private:
     /**
      * 选择排序, 每次循环选择最小的element。 时间复杂度 O(n^2)
@@ -32,10 +32,10 @@ private:
 
 int main()
 {
-    vector<int> nums = generateRandomNumbers(100 * 1000, 1, 1000 * 1000);
+    vector<int> nums = generateRandomNumbers<int>(100 * 1000, 1, 1000 * 1000);
 //    printNums(nums) ;
     
-    Sorter *sorter = new SelectionSorter();
+    Sorter<int> *sorter = new SelectionSorter();
     sorter->sort(nums);
 //    printNums(nums);
     

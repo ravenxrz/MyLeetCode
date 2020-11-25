@@ -4,7 +4,7 @@
 
 #include "common.h"
 
-class BubbleSorter : public Sorter {
+class BubbleSorter : public Sorter<int> {
     /**
      * 冒泡排序 复杂度O(n^2)
      * 一个优化点是，当一次循环中，没有发生“交换”操作时，说明已经排好序，
@@ -35,9 +35,9 @@ class BubbleSorter : public Sorter {
 
 int main()
 {
-    std::vector<int> nums = generateRandomNumbers(8, 1, 10);
+    std::vector<int> nums = generateRandomNumbers<int>(8, 1, 10);
     printNums(nums);
-    Sorter *sorter = new BubbleSorter();
+    Sorter<int>  *sorter = new BubbleSorter();
     sorter->sort(nums);
 //    printNums(nums);
     delete sorter;

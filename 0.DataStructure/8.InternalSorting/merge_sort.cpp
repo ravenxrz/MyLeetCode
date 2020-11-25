@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class MergeSorter : public Sorter {
+class MergeSorter : public Sorter<int> {
 private:
     /**
      * merge sort O(nlogn)级别排序算法，相对于快速和堆排序来说，优点在于是稳定排序
@@ -70,9 +70,9 @@ private:
 
 int main()
 {
-    std::vector<int> nums = generateRandomNumbers(100*1000, 1, 1000*1000);
+    std::vector<int> nums = generateRandomNumbers<int>(100*1000, 1, 1000*1000);
 //    printNums(nums);
-    Sorter *sorter = new MergeSorter();
+    Sorter<int> *sorter = new MergeSorter();
     sorter->sort(nums);
 //    printNums(nums);
     delete sorter;

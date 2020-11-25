@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class ShellSorter : public Sorter {
+class ShellSorter : public Sorter<int> {
 private:
     void _sort(vector<int> &nums) override {
         vector<int> delta;
@@ -46,8 +46,8 @@ private:
 };
 
 int main() {
-    vector<int> nums = generateRandomNumbers(1000*100, 1, 1000 * 1000);
-    Sorter *sorter = new ShellSorter();
+    vector<int> nums = generateRandomNumbers<int>(1000*100, 1, 1000 * 1000);
+    Sorter<int> *sorter = new ShellSorter();
     sorter->sort(nums);
     delete sorter;
     return 0;

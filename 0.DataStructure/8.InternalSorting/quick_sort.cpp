@@ -4,7 +4,7 @@
 
 #include "common.h"
 
-class QuickSorter : public Sorter {
+class QuickSorter : public Sorter<int> {
     /**
      * 快速排序 复杂度O(nlog(n)) 非稳定排序算法
      * 最坏的情况，序列已经有序，此时复杂度为O(n^2)
@@ -38,11 +38,11 @@ private:
 
 int main()
 {
-    std::vector<int> nums = generateRandomNumbers(1000*100, 1, 1000*1000);
+    std::vector<int> nums = generateRandomNumbers<int>(1000*100, 1, 1000*1000);
     
 //    std::sort(nums.rbegin(),nums.rend());     // 100k数据+反序会出现堆溢出
 //    printNums(nums);
-    Sorter *sorter = new QuickSorter();
+    Sorter<int> *sorter = new QuickSorter();
     sorter->sort(nums);
 //    printNums(nums);
     delete sorter;

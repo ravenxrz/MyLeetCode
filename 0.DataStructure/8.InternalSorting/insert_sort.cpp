@@ -12,7 +12,7 @@ using namespace std;
 /**
  * 插入排序器
  */
-class InsertSorter : public Sorter{
+class InsertSorter : public Sorter<int>{
 private:
     void _sort(vector<int> &nums) override {
         binary_insert_sort(nums);
@@ -74,8 +74,8 @@ private:
 
 
 int main() {
-    vector<int> rnums = generateRandomNumbers(1000,1,1000*1000);
-    Sorter *sorter = new InsertSorter();
+    vector<int> rnums = generateRandomNumbers<int>(1000,1,1000*1000);
+    Sorter<int> *sorter = new InsertSorter();
     sorter->sort(rnums);
     ::printNums(rnums);
     delete sorter;

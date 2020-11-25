@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class HeapSorter : public Sorter {
+class HeapSorter : public Sorter<int> {
 private:
     /**
      * 堆排序。 特点： 最差，平均的时间复杂度都是O(nlog(n)) 这是和快速排序相比的优点
@@ -91,9 +91,9 @@ private:
 
 int main()
 {
-    std::vector<int> nums = generateRandomNumbers(100*1000, 1, 1000*1000);
+    std::vector<int> nums = generateRandomNumbers<int>(100*1000, 1, 1000*1000);
 //    printNums(nums);
-    Sorter *sorter = new HeapSorter();
+    Sorter<int> *sorter = new HeapSorter();
     sorter->sort(nums);
 //    printNums(nums);
     delete sorter;
