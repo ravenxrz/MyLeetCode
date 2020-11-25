@@ -3,7 +3,7 @@
 // 桶排序， 桶排序有多种实现方式。
 // GeeksforGeeks 给了一种[0,1]之间的浮点数排序方式，本文参考它实现
 // 参考链接：
-// 1.
+// 1. https://www.geeksforgeeks.org/bucket-sort-2/?ref=lbp
 // 2. https://blog.csdn.net/daaikuaichuan/article/details/80656907
 //
 
