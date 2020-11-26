@@ -20,7 +20,7 @@ private:
 
     /* 普通插入排序 */
     /* 测试结果：normal的insert sort 10*1000数据量，0.205s  100*1000数据量。 20.52s */
-    static vector<int> &normal_sort(vector<int> &nums) {
+    static void normal_sort(vector<int> &nums) {
         int i, j;
         for (i = 1; i < nums.size(); i++) {
             int cur = nums[i];
@@ -36,13 +36,11 @@ private:
             if (j == -1)
                 nums[0] = cur;
         }
-
-        return nums;
     }
 
     /* 折半插入排序 */
     /* 测试结果：10*1000数据量0.152s 100*1000数据量 14.943s */
-    static vector<int> &binary_insert_sort(vector<int> &nums) {
+    static void binary_insert_sort(vector<int> &nums) {
         int i, j;
         for(i = 1;i<nums.size();i++){
             int cur = nums[i];
@@ -68,7 +66,6 @@ private:
             }
             nums[mid] = cur;
         }
-        return nums;
     }
 };
 
@@ -77,7 +74,7 @@ int main() {
     vector<int> rnums = generateRandomNumbers<int>(1000,1,1000*1000);
     Sorter<int> *sorter = new InsertSorter();
     sorter->sort(rnums);
-    ::printNums(rnums);
+//    ::printNums(rnums);
     delete sorter;
     return 0;
 }
