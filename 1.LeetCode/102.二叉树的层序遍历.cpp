@@ -14,7 +14,7 @@ struct TreeNode {
     TreeNode *left;
     TreeNode *right;
     
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}// @lc code=start
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
 /**
@@ -26,7 +26,7 @@ struct TreeNode {
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-
+ 
 // @lc code=start
 class Solution {
 public:
@@ -60,19 +60,6 @@ public:
         return ans;
     }
 };
+
 // @lc code=end
 
-int main()
-{
-    TreeNode *root = new TreeNode(3);
-    root->left = new TreeNode(9);
-    root->right = new TreeNode(20);
-    Solution sol;
-    const vector<vector<int>> &ans = sol.levelOrder(root);
-    for (const auto &level : ans) {
-        for (const auto &val : level) {
-            cout << val << endl;
-        }
-    }
-    return 0;
-}
