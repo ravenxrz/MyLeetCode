@@ -39,18 +39,18 @@ public:
         stack<TreeNode *> stk1;
         stack<TreeNode *> stk2;
         stk1.push(root);
-        int level = 1;
+        int level = 0;
         TreeNode *cur = nullptr;
         
         while (!stk1.empty() || !stk2.empty()) {
-            if (level % 2 == 0) {  // 偶数层
+            if (level % 2 == 1) {  // 当前在奇数层
                 while (!stk2.empty()) {
                     cur = stk2.top();
                     stk2.pop();
                     if (cur == nullptr) continue;
                     // 从右往左加
                     stk1.push(cur->right);
-                    stk2.push(cur->left);
+                    stk1.push(cur->left);
                     // 加入到ans
                     if (ans.size() <= level) {
                         ans.push_back({cur->val});
@@ -58,7 +58,7 @@ public:
                         ans[level].push_back(cur->val);
                     }
                 }
-            } else { // 奇数层
+            } else { // 当前在偶数层
                 while (!stk1.empty()) {
                     cur = stk1.top();
                     stk1.pop();
