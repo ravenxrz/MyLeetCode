@@ -18,7 +18,7 @@ int main(void)
     tree.preorder_traverse();
     cout << "in order:";
     tree.inorder_traverse();
-    cout << "post order:";
+    cout << "post_idx order:";
     tree.postorder_traverse();
 
     cout << "tree height:" << tree.height() << "\n";
