@@ -17,60 +17,59 @@ public:
     int ladderLength(string beginWord, string endWord, vector<string> &wordList)
     {
         sort(wordList.begin(), wordList.end());
-        auto iter = binary_find(wordList.begin(), wordList.end(), endWord);
-        if (iter == wordList.end()) return 0;
+        if(!binary_search(wordList.begin(),wordList.end(),endWord)) return 0;
         
         vector<int> visit1;
         queue<int> qe1;
-        const vector<int> &conn = findConnectStrs(beginWord, visit1, wordList);
-        for (auto val : conn) {
-            visit1.push_back(val);
-            qe1.push(val);
-        }
-        if(find(visit1.begin(),visit1.end(),iter-wordList.begin()) != visit1.end()){
-            return 2;
-        }
-        
         vector<int> visit2;
         queue<int> qe2;
-        qe2.push(iter - wordList.begin());
-        visit2.push_back(iter - wordList.begin());
+        int level1 = 1;
+        int level2 = 1;
+        // init visit
+        const vector<int> &conn1 = findConnectStrs(beginWord, visit1, wordList);
+        for (int idx: conn1) {
+            qe1.push(idx);
+        }
+        const vector<int> &conn2 = findConnectStrs(endWord, visit2, wordList);
+        for (int idx: conn2) {
+            qe2.push(idx);
+        }
         
-        int count = 1;
         
         while (!qe1.empty() && !qe2.empty()) {
             const int size1 = qe1.size();
             const int size2 = qe2.size();
-            count++;
+            
             // 从队列短的那一端开始遍历
             if (size1 <= size2) {
+                level1++;
                 for (int i = 0; i < size1; i++) {
-                    const string &cur_str = wordList.at(qe1.front());
+                    const string& cur_str = wordList.at(qe1.front());
                     qe1.pop();
                     // push connected nodes
                     vector<int> conn = findConnectStrs(cur_str, visit1, wordList);
                     for (int i = 0; i < conn.size(); i++) {
                         if (find(visit2.begin(), visit2.end(), conn[i]) != visit2.end()) {
-                            return count + 1;
+                            return level1 + level2 - 1;
                         }
                         qe1.push(conn[i]);
                     }
                 }
             } else {
+                level2++;
                 for (int i = 0; i < size2; i++) {
-                    const string &cur_str = wordList.at(qe2.front());
+                    const string& cur_str = wordList.at(qe2.front());
                     qe2.pop();
                     vector<int> conn = findConnectStrs(cur_str, visit2, wordList);
                     for (int i = 0; i < conn.size(); i++) {
                         if (find(visit1.begin(), visit1.end(), conn[i]) != visit1.end()) {
-                            return count + 1;
+                            return level1 + level2 - 1;
                         }
                         qe2.push(conn[i]);
                     }
                 }
             }
         }
-        
         return 0;
     }
 
@@ -114,8 +113,8 @@ private:
 int main()
 {
     Solution sol;
-    vector<string> wordList = {"hot", "dot", "dog"};
-    cout << sol.ladderLength("hot", "dog", wordList);
+    vector<string> wordList = {"hot","dot","dog","lot","log"};
+    cout << sol.ladderLength("hit", "cog", wordList);
     return 0;
 }
 
