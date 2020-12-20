@@ -1,14 +1,3 @@
-/*
- * @lc app=leetcode.cn id=146 lang=cpp
- *
- * [146] LRU 缓存机制
- */
-#include <iostream>
-#include <map>
-#include <list>
-using namespace std;
-
-
 // @lc code=start
 class LRUCache {
 public:
@@ -74,19 +63,3 @@ private:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
-// @lc code=end
-
-int main()
-{
-    LRUCache cache(2);
-    cache.put(1,1);
-    cache.put(2,2);
-    cout << cache.get(1);
-    cache.put(3,3);
-    cout << cache.get(2);
-    cache.put(4,4);
-    cout << cache.get(1);
-    cout << cache.get(3);
-    cout << cache.get(4);
-    return 0;
-}
