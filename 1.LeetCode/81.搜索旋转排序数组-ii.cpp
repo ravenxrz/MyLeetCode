@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=33 lang=cpp
+ * @lc app=leetcode.cn id=81 lang=cpp
  *
- * [33] 搜索旋转排序数组
+ * [81] 搜索旋转排序数组 II
  */
 #include <bits/stdc++.h>
 
@@ -10,10 +10,11 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int search(vector<int> &nums, int target)
-    {
-        if (nums.size() == 1) {
-            return  nums[0] == target ? 0 : -1;
+    bool search(vector<int>& nums, int target) {
+        if(nums.empty())
+            return false;
+         if (nums.size() == 1) {
+            return  nums[0] == target ;
         }
         // 找到反转点
         int point = 1;
@@ -33,12 +34,11 @@ public:
             iter = std::lower_bound(nums.begin() + point, nums.end(), target);
         }
         if (iter != nums.end() && *iter == target) {
-            return iter - nums.begin();
+            return true;
         } else {
-            return -1;
+            return false;
         }
     }
-private:
 };
 // @lc code=end
 

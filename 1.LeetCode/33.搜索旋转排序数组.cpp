@@ -38,7 +38,6 @@ public:
             return -1;
         }
     }
-private:
 };
 // @lc code=end
 
