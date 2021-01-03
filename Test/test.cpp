@@ -1,57 +1,82 @@
 /*
- * @lc app=leetcode.cn id=215 lang=cpp
+ * @lc app=leetcode.cn id=173 lang=cpp
  *
- * [215] 数组中的第K个最大元素
+ * [173] 二叉搜索树迭代器
  */
 #include <iostream>
-#include <vector>
-#include <cassert>
-#include <algorithm>
+#include <stack>
 
 using namespace std;
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}// @lc code=start
+};
+
 // @lc code=start
-class Solution {
+
+class BSTIterator {
 public:
-    int findKthLargest(vector<int> &nums, int k)
+    BSTIterator(TreeNode *root)
     {
-        return _find(nums, 0, nums.size() - 1, k-1);
+        push(root);
+    }
+    
+    int next()
+    {
+        TreeNode *node = stk.top();
+        stk.pop();
+        // push right
+        if (node->right != NULL) {
+            push(node->right);
+        }
+        return node->val;
+    }
+    
+    void push(TreeNode *node)
+    {
+        while (node != NULL) {
+            stk.push(node);
+            node = node->left;
+        }
+    }
+    
+    bool hasNext()
+    {
+        return !stk.empty();
     }
 
+
 private:
-    
-    int _find(vector<int> &nums, int start, int end, int k)
-    {
-        int p = partition(nums, start, end);
-        if (p < k) {
-            return _find(nums, p + 1, end, k);
-        } else if (p > k) {
-            return _find(nums, start, p - 1, k);
-        }
-        return nums[p];
-    }
-    
-    int partition(vector<int> &nums, int start, int end)
-    {
-        int pivot = nums[start];
-        int i = start, j = end;
-        while (i < j) {
-            while (j > i && nums[j] <= pivot) j--;
-            nums[i] = nums[j];
-            while (i < j && nums[i] >= pivot) i++;
-            nums[j] = nums[i];
-        }
-        nums[i] = pivot;
-        return i;
-    }
-    
+    stack<TreeNode *> stk;
 };
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator* obj = new BSTIterator(root);
+ * int param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
 // @lc code=end
 
 int main()
 {
-    Solution sol;
-    vector<int> nums{3, 2, 3, 1, 2, 4, 5, 5, 6};
-    cout << sol.findKthLargest(nums, 4) << endl;
+    TreeNode *root = new TreeNode(7);
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(15);
+    BSTIterator *iter = new BSTIterator(root);
+    cout << iter->next() << endl;
+    cout << iter->next() << endl;
+    cout << iter->next() << endl;
+    cout << iter->hasNext() << endl;
+    
+    delete iter;
     return 0;
 }

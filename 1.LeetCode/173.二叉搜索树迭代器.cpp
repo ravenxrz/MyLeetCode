@@ -26,28 +26,26 @@ class BSTIterator {
 public:
     BSTIterator(TreeNode *root)
     {
-        stk.push(new Node(root));
-        if (root->left != NULL) {
-            push(root->left);
-        }
+        push(root);
     }
     
     int next()
     {
-        int value = -1;
-        Node *cur = stk.top();
+        TreeNode *node = stk.top();
         stk.pop();
-        if (cur->node->left == NULL) {
-            value = cur->node->val;
-            // push right
-            push(cur->node->right);
-            return value;
+        // push right
+        if (node->right != NULL) {
+            push(node->right);
         }
-        // left child is not null
-        // push left
-        push(cur->node->left);
-        value = stk.top()->node->val;
-        return value;
+        return node->val;
+    }
+    
+    void push(TreeNode *node)
+    {
+        while (node != NULL) {
+            stk.push(node);
+            node = node->left;
+        }
     }
     
     bool hasNext()
@@ -55,26 +53,9 @@ public:
         return !stk.empty();
     }
 
-private:
-    void push(TreeNode *node)
-    {
-        while (node != NULL) {
-            stk.push(new Node(node));
-            node = node->left;
-        }
-    }
 
 private:
-    class Node {
-    public:
-        explicit Node(TreeNode *node) : node(node) {}
-    
-    public:
-        TreeNode *node;
-    };
-
-private:
-    stack<Node *> stk;
+    stack<TreeNode *> stk;
 };
 
 /**
@@ -85,3 +66,17 @@ private:
  */
 // @lc code=end
 
+int main()
+{
+    TreeNode *root = new TreeNode(7);
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(15);
+    BSTIterator *iter = new BSTIterator(root);
+    cout << iter->next() << endl;
+    cout << iter->next() << endl;
+    cout << iter->next() << endl;
+    cout << iter->hasNext() << endl;
+    
+    delete iter;
+    return 0;
+}
