@@ -18,8 +18,7 @@
  */
 class Solution {
 public:
-    TreeNode *convertBST(TreeNode *root)
-    {
+    TreeNode* convertBST(TreeNode* root) {
         in_order_traverse(root);
         // 求和
         int sum = 0;
@@ -27,14 +26,13 @@ public:
             sum += node->val;
         }
         // 重新赋值
-        for (auto &node : nodes) {
+        for (auto & node : nodes) {
             int val = node->val;
             node->val = sum;
             sum -= val;
         }
         return root;
     }
-
 private:
     // 中序遍历一次
     void in_order_traverse(TreeNode *node)
