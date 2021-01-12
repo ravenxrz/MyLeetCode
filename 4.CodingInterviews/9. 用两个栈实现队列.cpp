@@ -27,7 +27,7 @@ public:
         if (delete_stk.empty() && append_stk.empty()) {
             return -1;
         }
-
+        
         
         int value = 0;
         if (!delete_stk.empty()) {
