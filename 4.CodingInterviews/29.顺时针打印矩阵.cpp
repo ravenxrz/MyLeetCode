@@ -59,9 +59,8 @@ private:
             // go to right
             while (cur != rightBt) {
                 ans.push_back(matrix[cur.x][cur.y]);
-                cur.y++;
+                cur.x++;
             }
-            ans.push_back(matrix[cur.x][cur.y]);
             return;
         }
         // single column
@@ -69,24 +68,23 @@ private:
             // go to bottom
             while (cur != rightBt) {
                 ans.push_back(matrix[cur.x][cur.y]);
-                cur.x++;
+                cur.y++;
             }
-            ans.push_back(matrix[cur.x][cur.y]);
             return;
         }
         // normal rectangle
         // right
         while (cur != rightTop) {
             ans.push_back(matrix[cur.x][cur.y]);
-            cur.y++;
+            cur.x++;
         }
         ans.push_back(matrix[cur.x][cur.y]);
-        cur.x++;
+        cur.y++;
         
         // down
         while (cur != rightBt) {
             ans.push_back(matrix[cur.x][cur.y]);
-            cur.x++;
+            cur.y++;
         }
         ans.push_back(matrix[cur.x][cur.y]);
         cur.y--;
@@ -113,10 +111,6 @@ private:
 
 void printResult(const vector<int> &result)
 {
-    if(result.empty()){
-        cout << "empty\n";
-        return;
-    }
     for (auto val : result) {
         cout << val << ' ';
     }
