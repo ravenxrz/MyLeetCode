@@ -36,10 +36,10 @@ class Solution {
 public:
     Node *copyRandomList(Node *head)
     {
-        if (head == NULL) return head;
+        if(head == NULL)  return head;
         // step 1 生成新节点
         Node *cursor = head;
-        while (cursor) {
+        while(cursor){
             Node *tmp = new Node(cursor->val);
             tmp->next = cursor->next;
             cursor->next = tmp;
@@ -47,8 +47,8 @@ public:
         }
         // step 2 生成random ptr
         cursor = head;
-        while (cursor) {
-            if (cursor->random) {
+        while(cursor){
+            if(cursor->random){
                 cursor->next->random = cursor->random->next;
             }
             cursor = cursor->next->next;
@@ -56,9 +56,9 @@ public:
         // step 3 拆分链表
         cursor = head;
         Node *new_head = cursor->next;
-        while (cursor) {
+        while(cursor){
             Node *tmp = cursor->next->next;
-            cursor->next->next = tmp == NULL ? tmp : tmp->next;
+            cursor->next = tmp->next;
             cursor->next = tmp;
             cursor = tmp;
         }

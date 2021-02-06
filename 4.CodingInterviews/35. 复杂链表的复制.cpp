@@ -1,4 +1,6 @@
 #include <iostream>
+#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -36,33 +38,36 @@ class Solution {
 public:
     Node *copyRandomList(Node *head)
     {
-        if (head == NULL) return head;
-        // step 1 生成新节点
-        Node *cursor = head;
-        while (cursor) {
-            Node *tmp = new Node(cursor->val);
-            tmp->next = cursor->next;
-            cursor->next = tmp;
-            cursor = cursor->next->next;
+        // empty check
+        if (head == NULL) return NULL;
+        // 已加入的表
+        unordered_map<Node *, Node *> added_map;
+        
+        Node *new_pre_head = new Node(-1);
+        Node *old_p = head;
+        Node *new_p = new_pre_head;
+        while (old_p != NULL) {
+            // 加入新节点
+            new_p->next = new Node(old_p->val);
+            // 将new_p->next和old_p的映射加入到added_map中，方便后续查看
+            added_map[old_p] = new_p->next;
+            
+            new_p = new_p->next;
+            old_p = old_p->next;
         }
-        // step 2 生成random ptr
-        cursor = head;
-        while (cursor) {
-            if (cursor->random) {
-                cursor->next->random = cursor->random->next;
+        // 扫描一遍random pointer
+        old_p = head;
+        while (old_p != NULL) {
+            if (old_p->random != NULL) {
+                added_map[old_p]->random = added_map[old_p->random];
             }
-            cursor = cursor->next->next;
+            old_p = old_p->next;
         }
-        // step 3 拆分链表
-        cursor = head;
-        Node *new_head = cursor->next;
-        while (cursor) {
-            Node *tmp = cursor->next->next;
-            cursor->next->next = tmp == NULL ? tmp : tmp->next;
-            cursor->next = tmp;
-            cursor = tmp;
-        }
-        return new_head;
+        
+        Node *ret_head = new_pre_head->next;
+        delete new_pre_head;
+        new_pre_head = NULL;
+        return ret_head;
     }
 };
 
