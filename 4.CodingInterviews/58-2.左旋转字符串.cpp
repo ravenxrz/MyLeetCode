@@ -1,9 +1,11 @@
 #include <string>
+#include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
     string reverseLeftWords(string s, int n)
     {
@@ -14,3 +16,12 @@ public:
         return s;
     }
 };
+
+int main()
+{
+    Solution sol;
+    {
+        cout << sol.reverseLeftWords("helloworld", 5) << '\n';
+    }
+    return 0;
+}
