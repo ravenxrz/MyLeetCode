@@ -38,13 +38,13 @@ private:
 
 int main()
 {
-    std::vector<int> nums = generateRandomNumbers<int>(1000*100, 1, 1000*1000);
+    std::vector<int> nums = {1,3,2};
     
 //    std::sort(nums.rbegin(),nums.rend());     // 100k数据+反序会出现堆溢出
 //    printNums(nums);
     Sorter<int> *sorter = new QuickSorter();
     sorter->sort(nums);
-//    printNums(nums);
+    printNums(nums);
     delete sorter;
     return 0;
 }
