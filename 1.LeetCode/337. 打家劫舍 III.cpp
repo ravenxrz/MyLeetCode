@@ -33,22 +33,26 @@ public:
     int rob(TreeNode *root)
     {
         if (root == nullptr) return 0;
-        auto ret = rob_core(root);
-        return max(ret[0], ret[1]);
+        memo.clear();
+        return rob_core(root);
     }
 
 private:
-    vector<int> rob_core(TreeNode *node)
+    int rob_core(TreeNode *node)
     {
-        if (node == nullptr) return {0, 0};
+        if (node == nullptr) return 0;
+        if (memo.count(node)) return memo[node];
         
-        vector<int> left = rob_core(node->left);
-        vector<int> right = rob_core(node->right);
-        
-        int do_rob = node->val + left[0] + right[0];
-        int not_do_rob = max(left[0], left[1]) + max(right[0], right[1]);
-        return {not_do_rob, do_rob};
+        int base1 = node->val +
+                    (node->left ? rob_core(node->left->left) + rob_core(node->left->right) : 0) +
+                    (node->right ? rob_core(node->right->left) + rob_core(node->right->right) : 0);
+        int base2 = rob_core(node->left) + rob_core(node->right);
+        memo[node] = max(base1, base2);
+        return memo[node];
     }
+
+private:
+    unordered_map<TreeNode *, int> memo;
 };
 
 int main()
