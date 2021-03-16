@@ -1,65 +1,41 @@
-//
-// Created by Raven on 2021/3/13.
-//
 #include <bits/stdc++.h>
 
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    int rob(TreeNode *root)
+    int findTargetSumWays(vector<int> &nums, int S)
     {
-        if (root == nullptr) return 0;
-        auto ret = rob_core(root);
-        return max(ret[0], ret[1]);
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (sum < S) return 0;
+        if ((sum + S) & 1) return 0;
+        return knapsack(nums, (sum + S) >> 1);
     }
-
-private:
-    vector<int> rob_core(TreeNode *node)
+    
+    int knapsack(const vector<int> &nums, int target)
     {
-        if (node == nullptr) return {0, 0};
+        int m = nums.size();
+        int n = target;
         
-        vector<int> left = rob_core(node->left);
-        vector<int> right = rob_core(node->right);
+        vector<int> dp(n + 1, 0);
+        dp[0] = 1;
         
-        int do_rob = node->val + left[0] + right[0];
-        int not_do_rob = max(left[0], left[1]) + max(right[0], right[1]);
-        return {not_do_rob, do_rob};
+        for (int i = 1; i <= m; ++i) {
+            for (int j = n; j >= 0; --j) {        // 逆向遍历，   这里j=1结尾，是假设　w[i] > 0 ， 如果w[i]=0, 则j应该从0开始。 参考lc:494.目标和
+                if (j >= nums[i - 1]) {
+                    dp[j] = dp[j] + dp[j - nums[i - 1]];
+                }
+            }
+        }
+        
+        return dp[n];
     }
 };
 
 int main()
 {
     Solution sol;
-    TreeNode *root = new TreeNode(3);
-    root->left = new TreeNode(4);
-    root->right = new TreeNode(5);
-    root->left->left = new TreeNode(1);
-    root->left->right = new TreeNode(3);
-    root->right->right = new TreeNode(1);
-    cout << sol.rob(root) << endl;
+    vector<int> nums = {0, 0, 0, 0, 0, 0, 0, 0, 1};
+    cout << sol.knapsack(nums, 1) << endl;
     return 0;
 }
