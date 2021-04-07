@@ -1,99 +1,41 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-class Node {
-public:
-    int val;
-    Node *left;
-    Node *right;
-    
-    Node() {}
-    
-    Node(int _val)
-    {
-        val = _val;
-        left = NULL;
-        right = NULL;
-    }
-    
-    Node(int _val, Node *_left, Node *_right)
-    {
-        val = _val;
-        left = _left;
-        right = _right;
-    }
-};
-
-
-/*
-// Definition for a Node.
-class Node {
-public:
-    int val;
-    Node* left;
-    Node* right;
-
-    Node() {}
-
-    Node(int _val) {
-        val = _val;
-        left = NULL;
-        right = NULL;
-    }
-
-    Node(int _val, Node* _left, Node* _right) {
-        val = _val;
-        left = _left;
-        right = _right;
-    }
-};
-*/
-
 class Solution {
 public:
-    Node *treeToDoublyList(Node *root)
+    int findTargetSumWays(vector<int> &nums, int S)
     {
-        if (root == NULL) return NULL;
-        
-        Node *tmp = NULL;
-        convert(root, tmp);
-        // find head and tail node
-        Node *head = root;
-        Node *tail = root;
-        while (head->left != NULL) head = head->left;
-        while (tail->right != NULL) tail = tail->right;
-        head->left = tail;
-        tail->right = head;
-        return head;
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (sum < S) return 0;
+        if ((sum + S) & 1) return 0;
+        return knapsack(nums, (sum + S) >> 1);
     }
-
-private:
-    void convert(Node *node, Node *&lastNode)
+    
+    int knapsack(const vector<int> &nums, int target)
     {
-        if (node == NULL) return;
+        int m = nums.size();
+        int n = target;
         
-        convert(node->left, lastNode);
-        node->left = lastNode;
-        if (node->left != NULL) {
-            node->left->right = node;
+        vector<int> dp(n + 1, 0);
+        dp[0] = 1;
+        
+        for (int i = 1; i <= m; ++i) {
+            for (int j = n; j >= 0; --j) {        // 逆向遍历，   这里j=1结尾，是假设　w[i] > 0 ， 如果w[i]=0, 则j应该从0开始。 参考lc:494.目标和
+                if (j >= nums[i - 1]) {
+                    dp[j] = dp[j] + dp[j - nums[i - 1]];
+                }
+            }
         }
-        lastNode = node;
-        convert(node->right, lastNode);
+        
+        return dp[n];
     }
 };
 
 int main()
 {
     Solution sol;
-    Node *root = new Node(2);
-    root->left = new Node(1);
-    root->right = new Node(3);
-    Node *node = sol.treeToDoublyList(root);
-    while (node) {
-        cout << node->val << '\n';
-        node = node->right;
-    }
-   
+    vector<int> nums = {0, 0, 0, 0, 0, 0, 0, 0, 1};
+    cout << sol.knapsack(nums, 1) << endl;
     return 0;
 }

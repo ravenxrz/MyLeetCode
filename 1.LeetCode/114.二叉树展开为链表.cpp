@@ -1,8 +1,14 @@
-/*
- * @lc app=leetcode.cn id=114 lang=cpp
- *
- * [114] 二叉树展开为链表
+
+/**
+ * n sum 问题
  */
+
+#include <set>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
 
 struct TreeNode {
     int val;
@@ -16,7 +22,6 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-// @lc code=start
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -32,41 +37,68 @@ class Solution {
 public:
     void flatten(TreeNode *root)
     {
-        _flatten(root);
+        if (root == nullptr) return;
+        flatten_core(root);
     }
 
 private:
-    TreeNode *_flatten(TreeNode *node)
+    TreeNode *flatten_core(TreeNode *node)
     {
-        if (node == nullptr) return nullptr;
-        if(node->left ==nullptr && node->right == nullptr) return node;
+        if (node->left == nullptr && node->right == nullptr) return node;
         
-        // save right node
+        TreeNode *last = nullptr;
         TreeNode *save_right = node->right;
-        // flatten左边
-        TreeNode *left_last = _flatten(node->left);
-        // flatten 右边
-        TreeNode *right_last = _flatten(save_right);
-        if(left_last == nullptr) {
-            return right_last;
-        }else{
-            node->right = node->left; node->left = nullptr;
-            left_last->right = save_right;
-            if(right_last == nullptr) return left_last;
-            else return right_last;
+        if (node->left) {
+            last = flatten_core(node->left);
+            last->right = save_right;
+            node->right = node->left;
+            node->left = nullptr;
         }
+        if (save_right) {
+            last = flatten_core(save_right);
+        }
+        return last;
     }
 };
-// @lc code=end
-
 
 int main()
 {
     TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
+    root->right = new TreeNode(5);
     root->left->left = new TreeNode(3);
-    
+    root->left->right = new TreeNode(4);
+    root->right->right = new TreeNode(6);
     Solution sol;
     sol.flatten(root);
     return 0;
 }
+
+class Solution {
+public:
+    void flatten(TreeNode *root)
+    {
+        if (root == nullptr) return;
+        flatten_core(root);
+    }
+
+private:
+    void flatten_core(TreeNode *node)
+    {
+        if (node == nullptr) return;
+        
+        flatten_core(node->left);
+        flatten_core(node->right);
+        
+        TreeNode *save_right = node->right;
+        node->right = node->left;
+        node->left = nullptr;
+        // 找到原左子树的最后一个节点
+        TreeNode *p = node;
+        while (p->right) {
+            p = p->right;
+        }
+        p->right = save_right;
+    }
+};
+
