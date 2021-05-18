@@ -25,4 +25,16 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
+void createTree(TreeNode **node) {
+  int x;
+  cin >> x;
+  if (x == -1) {
+    *node = nullptr;
+    return;
+  }
+  *node = new TreeNode(x);
+  createTree(&(*node)->left);
+  createTree(&(*node)->right);
+}
+
 #endif // TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
