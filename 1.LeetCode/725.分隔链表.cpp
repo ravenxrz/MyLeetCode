@@ -6,7 +6,7 @@
  */
 
 // @lc code=start
-/**
+/*c_cpp.auto*
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
