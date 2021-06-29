@@ -6,18 +6,21 @@
 #ifndef TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 #define TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 
+#include <cstring>
+#include <cassert>
+
+#include <algorithm>
 #include <deque>
 #include <iostream>
 #include <list>
 #include <map>
 #include <queue>
 #include <set>
+#include <stack>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <algorithm>
-#include <cstring>
 
 using namespace std;
 
