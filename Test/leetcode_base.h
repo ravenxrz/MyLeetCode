@@ -6,7 +6,19 @@
 #ifndef TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 #define TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cstring>
+#include <deque>
+#include <iostream>
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 using namespace std;
 
 struct TreeNode {
@@ -42,7 +54,8 @@ ListNode *createList() {
   ListNode *tail = nullptr;
   int x;
   while (cin >> x) {
-    if(x == -1) break;
+    if (x == -1)
+      break;
     if (head == nullptr) {
       head = new ListNode(x);
       tail = head;
@@ -55,8 +68,8 @@ ListNode *createList() {
   return head;
 }
 
-void printList(ListNode *head){
-  while(head){
+void printList(ListNode *head) {
+  while (head) {
     cout << head->val << " ";
     head = head->next;
   }
