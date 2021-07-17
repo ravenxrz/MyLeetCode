@@ -22,7 +22,7 @@ public:
     
     ~CMyString(void);
     
-    CMyString &operator+(const CMyString &rhs)
+    CMyString &operator=(const CMyString &rhs)
     {
         // 自赋值检查
         if (this != &rhs) {
