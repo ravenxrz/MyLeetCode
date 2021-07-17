@@ -1,33 +1,32 @@
 #include "leetcode_base.h"
 
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
+ * Definition for singly-linked list.
+ * struct ListNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-
 class Solution {
-private:
-  unordered_set<int> values;
+  vector<int> ans;
 
 public:
-  ListNode *removeDuplicateNodes(ListNode *head) {
-    ListNode **node = &head;
-    while (*node) {
-      if (values.count((*node)->val)) {
-        *node = (*node)->next;
-      } else {
-        values.insert((*node)->val);
-        node = &(*node)->next;
-      }
-    }
-    return head;
+  vector<int> reversePrint(ListNode *head) {
+    ans.clear();
+    recursive_print(head);
+    return ans;
+  }
+
+private:
+  void recursive_print(ListNode *node) {
+    if (node == nullptr)
+      return;
+    recursive_print(node->next);
+    ans.push_back(node->val);
   }
 };
+
+int main() {
+  return 0;
+}
