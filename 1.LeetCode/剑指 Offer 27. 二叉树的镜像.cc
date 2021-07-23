@@ -1,16 +1,16 @@
-
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Solution {
 public:
     TreeNode* mirrorTree(TreeNode* root) {
-    
+        doMirror(root);
+        return root;
+    }
+
+private:
+    void doMirror(TreeNode *node){
+        if(node == nullptr) return;
+        doMirror(node->left);
+        doMirror(node->right);
+        // Swap left and right tree
+        swap(node->left,node->right);
     }
 };
