@@ -1,19 +1,20 @@
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        if(head == nullptr)  return nullptr;
-        else if(head->next == nullptr) return head;
-        
-        ListNode *pre = nullptr;
-        ListNode *cur = head;
-        ListNode *next = cur->next;
-        
-        while(cur){
-            cur->next = pre;
-            pre = cur;
-            cur = next;
-            if(next) next = next->next;
+    ListNode *reverseList(ListNode *head)
+    {
+        if (head == nullptr || head->next == nullptr) return head;
+        return reverseRecursively(head);
+    }
+
+private:
+    ListNode *reverseRecursively(ListNode *node)
+    {
+        if (node->next == nullptr) {
+            return node;
         }
-        return pre;
+        ListNode *last = reverseRecursively(node->next);
+        node->next->next = node;
+        node->next = nullptr;
+        return last;
     }
 };
