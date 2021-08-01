@@ -6,8 +6,13 @@
 #ifndef TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 #define TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
 
-#include <algorithm>
+#include <ctime>
 #include <cstring>
+#include <cassert>
+#include <climits>
+#include <cmath>
+
+#include <algorithm>
 #include <deque>
 #include <iostream>
 #include <list>
@@ -17,7 +22,6 @@
 #include <set>
 #include <string>
 #include <stack>
-#include <cassert>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -76,6 +80,28 @@ void printList(ListNode *head) {
     cout << head->val << " ";
     head = head->next;
   }
+}
+
+
+/* 生成[start,end]之间的n个随机数 */
+template <typename T>
+std::vector<T> generateRandomNumbers(size_t n, int start=0, int end=100){
+  assert(n > 0);
+  std::vector<T> nums;
+  srand((unsigned)time(NULL));
+  for(size_t i = 0;i < n;i++){
+    double rnum = (double)rand() / RAND_MAX *(end- start) + start; // [0,1]
+    nums.push_back((T)rnum);
+  }
+  return nums;
+}
+
+template <typename T>
+void printNums(const std::vector<T>& nums){
+  for(auto &val : nums){
+    std::cout << val << " ";
+  }
+  std::cout << std::endl;
 }
 
 #endif // TEST_FOR_MYLEETCODE_LEETCODE_BASE_H
