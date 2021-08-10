@@ -13,6 +13,9 @@ class Solution {
             if (!uset.count(s[right])) {
                 uset.insert(s[right]);
             } else {
+                // 更新窗口大小
+                max_length = max(max_length, right - left);
+                // 移动左边界
                 while (left < right && s[left] != s[right]) {
                     uset.erase(s[left]);
                     left++;
@@ -22,9 +25,9 @@ class Solution {
                 }
             }
             right++;
-            max_length = max(max_length, right - left);
         }
-        return max_length;
+        return max_length = max(max_length, right - left);
+;
     }
 };
 
