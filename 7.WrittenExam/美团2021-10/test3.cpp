@@ -11,6 +11,7 @@ void handle_one() {
   string gender;
   //  scanf("%d%s%d%s",&N)
   cin >> N >> tables >> num >> gender;
+
   unordered_map<char, set<int>> umap;
   for (int i = 0; i < tables.size(); i++) {
     umap[tables[i]].insert(i);
@@ -24,13 +25,13 @@ void handle_one() {
         umap['0'].erase(umap['0'].begin());
       } else {
         cout << *umap['1'].begin() + 1 << '\n';
-        umap['2'].insert(*umap['1'].begin());
+        // umap['2'].insert(*umap['1'].begin());
         umap['1'].erase(umap['1'].begin());
       }
     } else if (g == 'M') {
       if (!umap['1'].empty()) {
         cout << *umap['1'].begin() + 1 << '\n';
-        umap['2'].insert(*umap['1'].begin());
+        // umap['2'].insert(*umap['1'].begin());
         umap['1'].erase(umap['1'].begin());
       } else {
         cout << *umap['0'].begin() + 1 << '\n';
