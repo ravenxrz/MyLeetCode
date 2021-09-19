@@ -7,6 +7,40 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+
+// 交换法
+class Solution {
+    vector<vector<int>> ans;
+
+   public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        ans.clear();
+        calcAll(nums, 0);
+        return ans;
+    }
+
+   private:
+    void calcAll(vector<int>& nums, int idx) {
+        if (idx == nums.size()) {
+            ans.push_back(nums);
+            return;
+        }
+
+        unordered_set<int> swap_table;
+        for (int i = idx; i < nums.size(); i++) {
+            if (!swap_table.count(nums[i])) {
+                swap(nums[idx], nums[i]);
+                calcAll(nums, idx + 1);
+                swap(nums[idx], nums[i]);
+                swap_table.insert(nums[i]);
+            }
+        }
+    }
+};
+
+
+
 // @lc code=start
 class Solution {
 public:

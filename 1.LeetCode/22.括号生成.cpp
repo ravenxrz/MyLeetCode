@@ -88,3 +88,53 @@ public:
 private:
     vector<string> ans;
 };
+
+
+
+class Solution {
+    vector<string> ans;
+
+   public:
+    vector<string> generateParenthesis(int n) {
+        stack<char> stk;
+        string tmp;
+        dfs(stk, tmp, 2 * n, 0);
+        return ans;
+    }
+
+   private:
+    void dfs(stack<char>& stk, string& tmp, int n, int idx) {
+        if (idx == n) {
+            if (stk.empty()) {
+                ans.push_back(tmp);
+            }
+            return;
+        }
+
+        // put (
+        if (n - idx >= stk.size()) {
+            stk.push('(');
+            tmp.push_back('(');
+            dfs(stk, tmp, n, idx + 1);
+            stk.pop();
+            tmp.pop_back();
+        }
+        // put )
+        if (!stk.empty()) {
+            stk.pop();
+            tmp.push_back(')');
+            dfs(stk, tmp, n, idx + 1);
+            stk.push('(');
+            tmp.pop_back();
+        }
+    }
+};
+
+int main() {
+    Solution sol;
+    for(const auto& str : sol.generateParenthesis(3)){
+        cout << str << ' ';
+    }
+    cout << endl;
+    return 0;
+}
