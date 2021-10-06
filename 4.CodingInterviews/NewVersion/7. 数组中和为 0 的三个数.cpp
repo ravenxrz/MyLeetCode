@@ -52,7 +52,7 @@ int main() {
         cout << sol.threeSum(nums).size() << endl;
     }
     {
-        vector<int> nums = {0,0,0};
+        vector<int> nums = {0, 0, 0};
         cout << sol.threeSum(nums).size() << endl;
     }
 
