@@ -8,16 +8,16 @@ class Solution {
         while (l < r) {
             int mid = (l + r) >> 1;
             int hours = calc(piles, mid);
-			// cout << mid << ":" << hours << endl;;
+            // cout << mid << ":" << hours << endl;;
             if (hours == h) {
                 r = mid;
             } else if (hours < h) {
-				r = mid;
+                r = mid;
             } else if (hours > h) {
                 l = mid + 1;
             }
         }
-		return l;
+        return l;
     }
 
    private:
@@ -31,18 +31,5 @@ class Solution {
 };
 
 int main() {
-    Solution sol;
-	{
-		vector<int> piles = {3, 6, 7, 11};
-		cout << sol.minEatingSpeed(piles, 8) << endl;
-	}
-	{
-		vector<int> piles = {30,11,23,4,20};
-		cout << sol.minEatingSpeed(piles, 5) << endl;
-	}
-	{
-		vector<int> piles = {30,11,23,4,20};
-		cout << sol.minEatingSpeed(piles, 6) << endl;
-	}
     return 0;
 }
