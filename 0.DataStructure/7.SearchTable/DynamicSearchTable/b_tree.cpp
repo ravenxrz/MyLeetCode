@@ -315,7 +315,7 @@ private:
         sibling->n--;
     }
     
-    // 想nd->children[idx+1]借一个key，插入到nd->children[idx]中
+    // 向nd->children[idx+1]借一个key，插入到nd->children[idx]中
     void borrow_from_next(struct node *nd, int idx)
     {
         assert(idx + 1 <= nd->n);
