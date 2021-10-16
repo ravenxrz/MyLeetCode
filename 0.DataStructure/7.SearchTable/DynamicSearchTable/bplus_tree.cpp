@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-static int order = 4; /* order: 一个节点有多少个指向children的指针 */
+static int order = 1000; /* order: 一个节点有多少个指向children的指针 */
 
 class BPTree;
 class Node;
@@ -59,6 +59,20 @@ class BPTree {
      *
      */
     void print_tree();
+
+    /**
+     * @brief 取得树的高度
+     * 
+     */
+    int height();
+
+    /**
+     * @brief 树是否为空
+     * 
+     * @return true 树空
+     * @return false 树非空
+     */
+    bool empty();
 
    private: /* function */
     /**
@@ -209,8 +223,8 @@ void BPTree::split_leaf(Node* node) {
         Node* cur = node->parent;
         int idx = std::upper_bound(cur->key.begin(), cur->key.end(), val) -
                   cur->key.begin();
-        node->key.insert(node->key.begin() + idx, val);
-        node->children.insert(node->children.begin() + idx + 1, right_node);
+        cur->key.insert(cur->key.begin() + idx, val);
+        cur->children.insert(cur->children.begin() + idx + 1, right_node);
     }
 }
 
@@ -227,6 +241,8 @@ void BPTree::split_non_leaf(Node* node) {
     int val = node->key[left_num];
     right_node->is_leaf = false;
     right_node->parent = left_node->parent;
+    right_node->key.resize(right_num, 0);
+    right_node->children.resize(right_num + 1, 0);
 
     /* 拆分key */
     int i, j;
@@ -265,8 +281,8 @@ void BPTree::split_non_leaf(Node* node) {
         Node* cur = node->parent;
         int idx = std::upper_bound(cur->key.begin(), cur->key.end(), val) -
                   cur->key.begin();
-        node->key.insert(node->key.begin() + idx, val);
-        node->children.insert(node->children.begin() + idx + 1, right_node);
+        cur->key.insert(cur->key.begin() + idx, val);
+        cur->children.insert(cur->children.begin() + idx + 1, right_node);
     }
 
     /* 由于node节点拆分为了两个节点，所以要更新原node节点的孩子节点的parent指针
@@ -313,26 +329,33 @@ void BPTree::print_one_node(const Node* node) const {
     cout << node_str << "]";
 }
 
+int BPTree::height()
+{
+    if(empty()) return 0;
+    int level = 1;
+    Node *cur = root_;
+    while(!cur->is_leaf){
+        cur = cur->children[0];
+        level++;
+    }
+    return level;
+}
+
+bool BPTree::empty()
+{
+    return root_->is_leaf && root_->key.empty();
+}
+
 int main() {
     BPTree bptree;
-    bptree.insert(1);
-    bptree.insert(2);
-    bptree.insert(3);
-    bptree.print_tree();
-    assert(bptree.search(1));
-    assert(bptree.search(2));
-    assert(bptree.search(3));
-    assert(!bptree.search(4));
-    cout << endl;
 
-    bptree.insert(4); /* this will trigger an split */
+    /* 插入1w个值 */
+    srand(time(NULL));
+    for (int i = 0; i < 1000 * 1000; i++) {
+        bptree.insert(rand());
+    }
     bptree.print_tree();
-    assert(bptree.search(4));
-    cout << endl;
+    cout << bptree.height() << endl;
 
-    bptree.insert(5);
-    bptree.insert(6);
-    bptree.print_tree();
-    cout << endl;
     return 0;
 }
